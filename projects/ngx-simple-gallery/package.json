@@ -1,0 +1,19 @@
+{
+  "name": "ngx-simple-gallery",
+  "version": "0.1.0",
+  "peerDependencies": {
+    "@angular/cdk": "^18.2.0",
+    "@angular/common": "^18.2.0",
+    "@angular/core": "^18.2.0"
+  },
+  "keywords": [
+    "angular",
+    "gallery"
+  ],
+  "homepage": "https://github.com/zolcsi/ngx-simple-gallery",
+  "license": "MIT",
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

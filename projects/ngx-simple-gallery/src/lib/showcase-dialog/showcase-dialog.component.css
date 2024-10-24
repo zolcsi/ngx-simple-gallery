@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.showcase-dialog {
+  position: relative;
+  background-color: #333333;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.125rem;
+  right: 0.125rem;
+  display: flex;
+  padding: 1rem;
+  background-color: #333333;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+}
+
+#svgPath {
+  fill: #E0E0E0;
+}

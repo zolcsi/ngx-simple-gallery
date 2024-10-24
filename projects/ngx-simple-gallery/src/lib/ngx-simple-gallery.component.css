@@ -1,0 +1,20 @@
+.gallery-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.thumbnail-wrapper {
+  cursor: pointer;
+}
+
+.thumbnail-image {
+  object-fit: cover;
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 1.2rem;
+}
