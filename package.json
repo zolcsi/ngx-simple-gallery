@@ -1,6 +1,9 @@
 {
   "name": "simple-gallery",
-  "version": "0.0.0",
+  "author": {
+    "name": "Zoltan Magyar",
+    "email": "zolcsi.code@proton.me"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -1,6 +1,6 @@
 # Ngx Simple Gallery
-[![codecov](https://codecov.io/)](https://codecov.io/)
-[![npm version](https://badge.fury.io/)](https://badge.fury.io/)
+
+[![npm version](https://badge.fury.io/js/ngx-simple-gallery.svg)](https://badge.fury.io/js/ngx-simple-gallery)
 
 A simple gallery lib for Angular [18]. It displays all the images as thumbnails and makes it big, when clicked/tapped on it.
  - mobile friendly
@@ -12,7 +12,7 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
 ## Installation
 
 ```sh
-npm install --save @zolcsi/ngx-simple-gallery @angular/cdk
+npm install --save ngx-simple-gallery @angular/cdk
 ```
 add the following line to your global styles (by default "styles.(scss|css)") if it is not included yet: 
 ```
