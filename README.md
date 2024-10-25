@@ -74,7 +74,7 @@ export class AppComponent {
 | emptyMessage  | no       | string        | 'Empty gallery, no images  provided.' | Message to show in case empty items provided |
 | thumbnailSize | no       | number        | 160                                   | The width/height of the thumbnails in px     | 
 
-### 3. When all parameters set
+### When all parameters set
 
 ```html
 <ngx-simple-gallery [galleryItems]="galleryItems" 
