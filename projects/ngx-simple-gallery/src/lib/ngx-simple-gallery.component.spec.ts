@@ -59,7 +59,7 @@ describe('GalleryComponent', () => {
     it('should display the empty gallery message', () => {
       const emptyMessageDe = componentDe.query(emptyMessageCss);
       const emptyMessage = emptyMessageDe.nativeElement;
-      expect(emptyMessage.textContent).toEqual('Empty gallery, no images were provided.');
+      expect(emptyMessage.textContent).toEqual(Constants.defaultEmptyMessage);
     });
   });
 

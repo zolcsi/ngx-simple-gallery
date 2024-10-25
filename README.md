@@ -52,8 +52,8 @@ export class AppComponent {
       src: '/img/image1.jpg' 
     }, 
     {
-        src: 'https://picsum.photos/id/237/2000/3000',
-        thumbnail: 'https://picsum.photos/id/237/160/160',
+      src: 'https://picsum.photos/id/237/2000/3000',
+      thumbnail: 'https://picsum.photos/id/237/160/160',
   }]
 }
 ```
@@ -68,7 +68,17 @@ export class AppComponent {
 
 ### Input parameters
 
-| Name          | Required | Type          | Default | Description                              |                              
-|---------------|----------|---------------|---------|------------------------------------------| 
-| galleryItems  | yes      | GalleryItem[] | [ ]     | Contains the list of images              |
-| thumbnailSize | no       | number        | 160     | The width/height of the thumbnails in px | 
+| Name          | Required | Type          | Default                               | Description                                  |                              
+|---------------|----------|---------------|---------------------------------------|----------------------------------------------| 
+| galleryItems  | yes      | GalleryItem[] | [ ]                                   | Contains the list of images                  |
+| emptyMessage  | no       | string        | 'Empty gallery, no images  provided.' | Message to show in case empty items provided |
+| thumbnailSize | no       | number        | 160                                   | The width/height of the thumbnails in px     | 
+
+### 3. When all parameters set
+
+```html
+<ngx-simple-gallery [galleryItems]="galleryItems" 
+                    [thumbnailSize]="65"
+                    emptyMessage="Please provide some images">  
+</ngx-simple-gallery>
+```
