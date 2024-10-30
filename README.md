@@ -9,6 +9,8 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
  - it takes up as much space as you let it
  - you can define a thumbnail or leave it empty. It is recommended though to provide it, because of performance reasons.
 
+## [Demo](https://zolcsi.github.io/ngx-simple-gallery/)
+
 ## Installation
 
 ```sh
