@@ -7,7 +7,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href https://zolcsi.github.io/ngx-simple-gallery/",
+    "build": "ng build",
+    "buildGithubPages": "ng build --base-href https://zolcsi.github.io/ngx-simple-gallery/",
+    "deployToGithubPages": "npx angular-cli-ghpages --dir=dist/simple-gallery/browser",
     "test": "ng test",
     "buildLib": "ng build ngx-simple-gallery",
     "watchLib": "ng build ngx-simple-gallery --watch",
