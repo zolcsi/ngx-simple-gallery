@@ -61,4 +61,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.9", ngImpor
  */
 
 export { NgxSimpleGalleryComponent, NgxSimpleGalleryService };
-//# sourceMappingURL=zolcsi-ngx-simple-gallery.mjs.map
+//# sourceMappingURL=ngx-simple-gallery.mjs.map
