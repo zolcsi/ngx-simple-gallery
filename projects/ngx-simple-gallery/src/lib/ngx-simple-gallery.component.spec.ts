@@ -5,9 +5,10 @@ import { By } from '@angular/platform-browser';
 import { Constants } from './core/constants';
 import { Dialog } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
+import { GalleryItem } from './core/model/gallery-item';
 import spyOn = jest.spyOn;
 
-const galleryItemsFixture = [
+const galleryItemsFixture: GalleryItem[] = [
   {
     src: 'https://picsum.photos/id/001/1200/1800',
   },
