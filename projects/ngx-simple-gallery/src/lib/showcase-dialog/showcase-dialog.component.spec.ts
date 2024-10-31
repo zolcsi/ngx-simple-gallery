@@ -3,6 +3,7 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import spyOn = jest.spyOn;
 
 const galleryItem = {
   src: 'https://picsum.photos/id/200/1200/1800',
@@ -12,10 +13,10 @@ describe('ImageDialogComponent', () => {
   let component: ShowcaseDialogComponent;
   let componentDe: DebugElement;
   let fixture: ComponentFixture<ShowcaseDialogComponent>;
-  let dialogRefSpy: jasmine.SpyObj<DialogRef>;
+  let dialogRefMock: { close: jest.Mock };
 
   beforeEach(async () => {
-    dialogRefSpy = jasmine.createSpyObj('DialogRef', ['close']);
+    dialogRefMock = { close: jest.fn() };
     await TestBed.configureTestingModule({
       imports: [ShowcaseDialogComponent],
       providers: [
@@ -25,7 +26,7 @@ describe('ImageDialogComponent', () => {
         },
         {
           provide: DialogRef,
-          useValue: dialogRefSpy,
+          useValue: dialogRefMock,
         },
       ],
     }).compileComponents();
@@ -50,7 +51,7 @@ describe('ImageDialogComponent', () => {
     });
 
     it('should check the role of the image', () => {
-      expect(image.role).toEqual('presentation');
+      expect(image.getAttribute('role')).toEqual('presentation');
     });
 
     it('should check the description of the image', () => {
@@ -62,8 +63,9 @@ describe('ImageDialogComponent', () => {
     });
 
     it('should close the dialog by clicking on the image anywhere', () => {
+      const dialogRefSpyOnClose = spyOn(dialogRefMock, 'close');
       imageDe.triggerEventHandler('click', null);
-      expect(dialogRefSpy.close).toHaveBeenCalledTimes(1);
+      expect(dialogRefSpyOnClose).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -76,7 +78,7 @@ describe('ImageDialogComponent', () => {
 
     it('should check the role of the close button', () => {
       const closeButton: HTMLElement = closeButtonDe.nativeElement;
-      expect(closeButton.role).toEqual('presentation');
+      expect(closeButton.getAttribute('role')).toEqual('presentation');
     });
 
     it('should check the children of the close button', () => {
@@ -89,8 +91,9 @@ describe('ImageDialogComponent', () => {
     });
 
     it('should close the dialog by clicking on the close button', () => {
+      const dialogRefSpyOnClose = spyOn(dialogRefMock, 'close');
       closeButtonDe.triggerEventHandler('click', null);
-      expect(dialogRefSpy.close).toHaveBeenCalledTimes(1);
+      expect(dialogRefSpyOnClose).toHaveBeenCalledTimes(1);
     });
   });
 });

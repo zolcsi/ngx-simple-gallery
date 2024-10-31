@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { Constants } from './core/constants';
 import { Dialog } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
+import spyOn = jest.spyOn;
 
 const galleryItemsFixture = [
   {
@@ -24,17 +25,17 @@ describe('GalleryComponent', () => {
   let component: NgxSimpleGalleryComponent;
   let componentDe: DebugElement;
   let fixture: ComponentFixture<NgxSimpleGalleryComponent>;
-  let dialogSpy: jasmine.SpyObj<Dialog>;
+  let dialogMock: { open: jest.Mock };
 
   beforeEach(async () => {
-    dialogSpy = jasmine.createSpyObj('Dialog', ['open']);
+    dialogMock = { open: jest.fn() };
 
     await TestBed.configureTestingModule({
       imports: [NgxSimpleGalleryComponent],
       providers: [
         {
           provide: Dialog,
-          useValue: dialogSpy,
+          useValue: dialogMock,
         },
       ],
     }).compileComponents();
@@ -148,14 +149,15 @@ describe('GalleryComponent', () => {
 
     it('should open the dialog with the first image', () => {
       // arrange
+      const dialogSpyOnOpen = spyOn(dialogMock, 'open');
       const thumbnailWrappersDe = componentDe.queryAll(thumbnailWrappersCss);
 
       // act
       thumbnailWrappersDe[0].triggerEventHandler('click', null);
 
       // assert
-      expect(dialogSpy.open).toHaveBeenCalledTimes(1);
-      expect(dialogSpy.open).toHaveBeenCalledWith(ShowcaseDialogComponent, {
+      expect(dialogSpyOnOpen).toHaveBeenCalledTimes(1);
+      expect(dialogSpyOnOpen).toHaveBeenCalledWith(ShowcaseDialogComponent, {
         data: { galleryItem: galleryItemsFixture[0] },
       });
     });
