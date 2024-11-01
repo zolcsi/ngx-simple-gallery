@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxSimpleGalleryComponent } from './ngx-simple-gallery.component';
-import { DebugElement } from '@angular/core';
+import { DebugElement, signal, WritableSignal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Constants } from './core/constants';
 import { Dialog } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
 import { GalleryItem } from './core/model/gallery-item';
+import { GalleryService } from './core/service/gallery.service';
 import spyOn = jest.spyOn;
 
 const galleryItemsFixture: GalleryItem[] = [
@@ -27,9 +28,19 @@ describe('GalleryComponent', () => {
   let componentDe: DebugElement;
   let fixture: ComponentFixture<NgxSimpleGalleryComponent>;
   let dialogMock: { open: jest.Mock };
+  let galleryServiceMock: {
+    galleryItems: WritableSignal<GalleryItem[]>;
+    setGalleryItems: jest.Mock;
+    setItemIndex: jest.Mock;
+  };
 
   beforeEach(async () => {
     dialogMock = { open: jest.fn() };
+    galleryServiceMock = {
+      galleryItems: signal([]),
+      setGalleryItems: jest.fn(),
+      setItemIndex: jest.fn(),
+    };
 
     await TestBed.configureTestingModule({
       imports: [NgxSimpleGalleryComponent],
@@ -37,6 +48,10 @@ describe('GalleryComponent', () => {
         {
           provide: Dialog,
           useValue: dialogMock,
+        },
+        {
+          provide: GalleryService,
+          useValue: galleryServiceMock,
         },
       ],
     }).compileComponents();
@@ -50,6 +65,7 @@ describe('GalleryComponent', () => {
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
+    expect(galleryServiceMock.setGalleryItems).toHaveBeenCalledTimes(1);
   });
 
   describe('testing empty gallery', () => {
@@ -67,7 +83,7 @@ describe('GalleryComponent', () => {
 
   describe('testing default settings', () => {
     beforeEach(() => {
-      fixture.componentRef.setInput('galleryItems', galleryItemsFixture);
+      galleryServiceMock.galleryItems.set(galleryItemsFixture);
       fixture.detectChanges();
       componentDe = fixture.debugElement;
     });
@@ -122,6 +138,7 @@ describe('GalleryComponent', () => {
     const customThumbnailSize = 65;
 
     beforeEach(() => {
+      galleryServiceMock.galleryItems.set(galleryItemsFixture);
       fixture.componentRef.setInput('galleryItems', galleryItemsFixture);
       fixture.componentRef.setInput('thumbnailSize', customThumbnailSize);
       fixture.detectChanges();
@@ -143,7 +160,7 @@ describe('GalleryComponent', () => {
 
   describe('testing click on an image', () => {
     beforeEach(() => {
-      fixture.componentRef.setInput('galleryItems', galleryItemsFixture);
+      galleryServiceMock.galleryItems.set(galleryItemsFixture);
       fixture.detectChanges();
       componentDe = fixture.debugElement;
     });
@@ -158,9 +175,8 @@ describe('GalleryComponent', () => {
 
       // assert
       expect(dialogSpyOnOpen).toHaveBeenCalledTimes(1);
-      expect(dialogSpyOnOpen).toHaveBeenCalledWith(ShowcaseDialogComponent, {
-        data: { galleryItem: galleryItemsFixture[0] },
-      });
+      expect(dialogSpyOnOpen).toHaveBeenCalledWith(ShowcaseDialogComponent);
+      expect(galleryServiceMock.setItemIndex).toHaveBeenCalledTimes(1);
     });
   });
 });
