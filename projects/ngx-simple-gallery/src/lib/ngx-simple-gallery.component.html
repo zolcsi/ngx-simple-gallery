@@ -1,6 +1,6 @@
 <div class="gallery-wrapper">
-  @for (image of galleryItems(); track image.src; let i = $index) {
-    <div role="presentation" class="thumbnail-wrapper" (click)="openDialog(image)">
+  @for (image of items(); track image.src; let i = $index) {
+    <div role="presentation" class="thumbnail-wrapper" (click)="openDialog(i)">
       <img class="thumbnail-image"
            [src]="image.thumbnail ?? image.src"
            [width]="thumbnailSize()"

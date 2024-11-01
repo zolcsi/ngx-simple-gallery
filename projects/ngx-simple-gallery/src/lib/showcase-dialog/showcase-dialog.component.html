@@ -1,10 +1,31 @@
 <div class="showcase-dialog">
   <div role="presentation" class="close-button" (click)="closeDialog()">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
-      <path id="svgPath"
-            d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"></path>
-    </svg>
+    <ng-container [ngTemplateOutlet]="closeButton" />
   </div>
 
-  <img role="presentation" alt="Gallery Image" [src]="data.galleryItem.src" (click)="closeDialog()">
+  <img role="presentation" alt="Gallery Image" [src]="imageSource()" (click)="closeDialog()">
+
+  <div role="presentation" class="left-chevron" (click)="loadPrevious()">
+    <ng-container [ngTemplateOutlet]="leftChevron" />
+  </div>
+
+  <div role="presentation" class="right-chevron" (click)="loadNext()">
+    <ng-container [ngTemplateOutlet]="rightChevron" />
+  </div>
+
 </div>
+
+<ng-template #closeButton>
+  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+    <path class="close-button-svg-path"
+          d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"></path>
+  </svg>
+</ng-template>
+
+<ng-template #leftChevron>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path class="chevron-svg-path" d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z"/></svg>
+</ng-template>
+
+<ng-template #rightChevron>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path class="chevron-svg-path" d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/></svg>
+</ng-template>
