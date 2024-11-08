@@ -20,8 +20,20 @@ export class AppComponent {
       thumbnail: 'https://picsum.photos/id/238/160/160',
     },
     {
-      src: 'https://picsum.photos/id/155/200/300',
+      src: 'https://picsum.photos/id/155/800/1200',
       thumbnail: 'https://picsum.photos/id/155/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/122/2000/3000',
+      thumbnail: 'https://picsum.photos/id/122/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/119/800/1200',
+      thumbnail: 'https://picsum.photos/id/119/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/111/800/1200',
+      thumbnail: 'https://picsum.photos/id/111/160/160',
     },
     { src: 'img/image1.jpg' },
     { src: 'img/image2.jpg' },

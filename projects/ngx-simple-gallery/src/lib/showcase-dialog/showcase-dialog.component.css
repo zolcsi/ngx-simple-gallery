@@ -7,10 +7,26 @@
   background-color: #333333;
 }
 
+.spinner {
+  position: absolute;
+  top: 5rem;
+  bottom: 5rem;
+  left: 5rem;
+  right: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 img {
   width: 100vw;
   height: 100vh;
   object-fit: contain;
+  transition: all 0.4s;
+
+  &.loading {
+    opacity: 0.3;
+  }
 }
 
 .close-button-svg-path {
@@ -29,8 +45,8 @@ img {
   transition: all 0.2s;
 
   &:hover {
-    background-color: #553333;
-    padding: 1.1rem;
+    background-color: #444444;
+    padding: 1.05rem;
   }
 }
 

@@ -30,17 +30,37 @@ describe('GalleryService', () => {
     expect(service.galleryItems().length).toEqual(2);
   });
 
+  describe('testing isLoading()', () => {
+    it('testing getIsLoading() default', () => {
+      expect(service.getIsLoading()).toBeFalsy();
+    });
+
+    it('testing getIsLoading() default', () => {
+      // arrange
+      service.setItemIndex(1);
+      expect(service.getIsLoading()).toBeTruthy();
+
+      // act
+      service.stopLoading();
+
+      // assert
+      expect(service.getIsLoading()).toBeFalsy();
+    });
+  });
+
   describe('testing setItemIndex()', () => {
     it('should return the src of the 2. image', () => {
       service.setGalleryItems(galleryItemsFixture);
       service.setItemIndex(1);
       expect(service.imageSource()).toEqual(galleryItemsFixture[1].src);
+      expect(service.getIsLoading()).toBeTruthy();
     });
 
     it('should return an empty string, as the index is out of bounds', () => {
       service.setGalleryItems(galleryItemsFixture);
       service.setItemIndex(25);
       expect(service.imageSource()).toEqual('');
+      expect(service.getIsLoading()).toBeTruthy();
     });
   });
 
@@ -55,6 +75,7 @@ describe('GalleryService', () => {
 
       // assert
       expect(service.imageSource()).toEqual(galleryItemsFixture[1].src);
+      expect(service.getIsLoading()).toBeTruthy();
     });
 
     it('should load the 1. image', () => {
@@ -67,10 +88,11 @@ describe('GalleryService', () => {
 
       // assert
       expect(service.imageSource()).toEqual(galleryItemsFixture[0].src);
+      expect(service.getIsLoading()).toBeTruthy();
     });
   });
 
-  describe('testing loadPrevt()', () => {
+  describe('testing loadPrev()', () => {
     it('should load the 1. image', () => {
       // arrange
       service.setGalleryItems(galleryItemsFixture);
@@ -81,6 +103,7 @@ describe('GalleryService', () => {
 
       // assert
       expect(service.imageSource()).toEqual(galleryItemsFixture[0].src);
+      expect(service.getIsLoading()).toBeTruthy();
     });
 
     it('should load the 2. image', () => {
@@ -93,6 +116,7 @@ describe('GalleryService', () => {
 
       // assert
       expect(service.imageSource()).toEqual(galleryItemsFixture[1].src);
+      expect(service.getIsLoading()).toBeTruthy();
     });
   });
 });
