@@ -12,7 +12,7 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
  - loading spinner while loading
  - you can define a thumbnail or leave it empty. It is recommended to provide it though, because of performance reasons.
 
-### [**Demo**](https://zolcsi.github.io/ngx-simple-gallery/) | [**Changelog**](https://zolcsi.github.io/ngx-simple-gallery/blob/master/CHANGELOG.md)
+### [**Demo**](https://zolcsi.github.io/ngx-simple-gallery/) | [**Changelog**](https://github.com/zolcsi/ngx-simple-gallery/blob/main/CHANGELOG.md)
 
 ## Installation
 
