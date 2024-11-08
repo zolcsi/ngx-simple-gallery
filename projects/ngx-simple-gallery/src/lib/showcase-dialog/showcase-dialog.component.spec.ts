@@ -6,8 +6,8 @@ import { By } from '@angular/platform-browser';
 import { GalleryService } from '../core/service/gallery.service';
 import spyOn = jest.spyOn;
 
-const galleryItem = {
-  src: 'https://picsum.photos/id/200/1200/1800',
+const galleryItem1 = {
+  src: 'https://picsum.photos/id/101/1200/1800',
 };
 
 describe('ImageDialogComponent', () => {
@@ -17,16 +17,20 @@ describe('ImageDialogComponent', () => {
   let dialogRefMock: { close: jest.Mock };
   let galleryServiceMock: {
     imageSource: WritableSignal<string>;
+    getIsLoading: WritableSignal<boolean>;
     loadNext: jest.Mock;
     loadPrev: jest.Mock;
+    stopLoading: jest.Mock;
   };
 
   beforeEach(async () => {
     dialogRefMock = { close: jest.fn() };
     galleryServiceMock = {
-      imageSource: signal(galleryItem.src),
+      imageSource: signal(galleryItem1.src),
+      getIsLoading: signal(false),
       loadNext: jest.fn(),
       loadPrev: jest.fn(),
+      stopLoading: jest.fn(),
     };
     await TestBed.configureTestingModule({
       imports: [ShowcaseDialogComponent],
@@ -70,7 +74,7 @@ describe('ImageDialogComponent', () => {
     });
 
     it('should check the src of the image', () => {
-      expect(imageDe.nativeElement.src).toEqual(galleryItem.src);
+      expect(imageDe.nativeElement.src).toEqual(galleryItem1.src);
     });
 
     it('should close the dialog by clicking on the image anywhere', () => {
@@ -161,6 +165,36 @@ describe('ImageDialogComponent', () => {
       const galleryServiceSpyOnPrev = spyOn(galleryServiceMock, 'loadPrev');
       prevButtonDe.triggerEventHandler('click', null);
       expect(galleryServiceSpyOnPrev).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('testing keydown events to navigate forward/backward', () => {
+    it('should press the right arrow to load the next item', () => {
+      const galleryServiceSpyOnNext = spyOn(galleryServiceMock, 'loadNext');
+      const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+
+      document.dispatchEvent(event);
+
+      expect(galleryServiceSpyOnNext).toHaveBeenCalledTimes(1);
+    });
+
+    it('should press the left arrow to load the previous item', () => {
+      const galleryServiceSpyOnPrev = spyOn(galleryServiceMock, 'loadPrev');
+      const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+
+      document.dispatchEvent(event);
+
+      expect(galleryServiceSpyOnPrev).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('testing imageLoaded()', () => {
+    it('should call the stopLoading()', () => {
+      const galleryServiceSpyOnStopLoading = spyOn(galleryServiceMock, 'stopLoading');
+
+      component.imageLoaded();
+
+      expect(galleryServiceSpyOnStopLoading).toHaveBeenCalledTimes(1);
     });
   });
 });

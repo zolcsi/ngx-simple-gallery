@@ -3,7 +3,13 @@
     <ng-container [ngTemplateOutlet]="closeButton" />
   </div>
 
-  <img role="presentation" alt="Gallery Image" [src]="imageSource()" (click)="closeDialog()">
+  @if (isLoading()) {
+    <div class="spinner">
+      <lib-spinner></lib-spinner>
+    </div>
+  }
+
+  <img role="presentation" alt="Gallery Image" [src]="imageSource()" [ngClass]="{'loading': isLoading()}" (click)="closeDialog()" (load)="imageLoaded()">
 
   <div role="presentation" class="left-chevron" (click)="loadPrevious()">
     <ng-container [ngTemplateOutlet]="leftChevron" />

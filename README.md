@@ -7,10 +7,12 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
  - mobile friendly
  - lightweight
  - use images from any source
- - it takes up as much space as you let it
- - you can define a thumbnail or leave it empty. It is recommended though to provide it, because of performance reasons.
+ - the gallery takes up as much space as you let it
+ - navigate forwards/backwards with keyboard arrows or touch/click on arrows in the showcase dialog
+ - loading spinner while loading
+ - you can define a thumbnail or leave it empty. It is recommended to provide it though, because of performance reasons.
 
-## [Demo](https://zolcsi.github.io/ngx-simple-gallery/)
+### [**Demo**](https://zolcsi.github.io/ngx-simple-gallery/) | [**Changelog**](https://zolcsi.github.io/ngx-simple-gallery/blob/master/CHANGELOG.md)
 
 ## Installation
 
@@ -77,7 +79,7 @@ export class AppComponent {
 | emptyMessage  | no       | string        | 'Empty gallery, no images  provided.' | Message to show in case empty items provided |
 | thumbnailSize | no       | number        | 160                                   | The width/height of the thumbnails in px     | 
 
-### When all parameters set
+### With all the input parameters set:
 
 ```html
 <ngx-simple-gallery [galleryItems]="galleryItems" 
