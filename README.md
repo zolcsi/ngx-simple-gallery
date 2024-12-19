@@ -10,6 +10,7 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
  - the gallery takes up as much space as you let it
  - navigate forwards/backwards with keyboard arrows or touch/click on arrows in the showcase dialog
  - loading spinner while loading
+ - smooth animation of the next item
  - you can define a thumbnail or leave it empty. It is recommended to provide it though, because of performance reasons.
 
 ### [**Demo**](https://zolcsi.github.io/ngx-simple-gallery/) | [**Changelog**](https://github.com/zolcsi/ngx-simple-gallery/blob/main/CHANGELOG.md)
@@ -26,9 +27,9 @@ add the following line to your global styles (by default "styles.(scss|css)") if
 
 ## Versioning
 
-| Gallery   | Angular   | Readme                                                       |
-| --------- |-----------| ------------------------------------------------------------ |
-| `<=1.x.x` | `>=18`    | here                                                         |
+| Gallery     | Angular | Readme                                                       |
+|-------------|---------| ------------------------------------------------------------ |
+| `^18`       | `18+`   | here                                                         |
 
 
 ## Usage
@@ -73,16 +74,18 @@ export class AppComponent {
 
 ### Input parameters
 
-| Name          | Required | Type          | Default                               | Description                                  |                              
-|---------------|----------|---------------|---------------------------------------|----------------------------------------------| 
-| galleryItems  | yes      | GalleryItem[] | [ ]                                   | Contains the list of images                  |
-| emptyMessage  | no       | string        | 'Empty gallery, no images  provided.' | Message to show in case empty items provided |
-| thumbnailSize | no       | number        | 160                                   | The width/height of the thumbnails in px     | 
+| Name              | Required | Type          | Default                               | Description                                        |                              
+|-------------------|----------|---------------|---------------------------------------|----------------------------------------------------| 
+| emptyMessage      | no       | string        | 'Empty gallery, no images  provided.' | Message to show in case empty items provided       |
+| galleryItems      | yes      | GalleryItem[] | [ ]                                   | Contains the list of images                        |
+| showThumbnailList | no       | boolean       | true                                  | Whether to show the thumbnail list in modal view   |                                      |
+| thumbnailSize     | no       | number        | 160                                   | The width/height of the thumbnails in px           |
 
 ### With all the input parameters set:
 
 ```html
-<ngx-simple-gallery [galleryItems]="galleryItems" 
+<ngx-simple-gallery [galleryItems]="galleryItems"
+                    [showThumbnailList]="false"
                     [thumbnailSize]="65"
                     emptyMessage="Please provide some images">  
 </ngx-simple-gallery>

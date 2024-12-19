@@ -4,6 +4,7 @@ import { Constants } from './core/constants';
 import { Dialog } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
 import { GalleryService } from './core/service/gallery.service';
+import { ModalConfig } from './core/model/modal-config';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -15,15 +16,20 @@ import { GalleryService } from './core/service/gallery.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxSimpleGalleryComponent {
-  public thumbnailSize = input<number>(Constants.defaultThumbnailSize);
-  public emptyMessage = input<string>(Constants.defaultEmptyMessage);
+  public readonly emptyMessage = input<string>(Constants.defaultEmptyMessage);
+  public readonly thumbnailSize = input<number>(Constants.defaultThumbnailSize);
+  protected readonly items: Signal<GalleryItem[]>;
   private readonly dialog = inject(Dialog);
   private readonly galleryService = inject(GalleryService);
-  protected items: Signal<GalleryItem[]>;
 
   @Input({ required: true })
   set galleryItems(items: GalleryItem[]) {
     this.galleryService.setGalleryItems(items);
+  }
+
+  @Input({ required: false })
+  set modalConfig(modalConfig: ModalConfig) {
+    this.galleryService.setModalConfig(modalConfig);
   }
 
   public constructor() {

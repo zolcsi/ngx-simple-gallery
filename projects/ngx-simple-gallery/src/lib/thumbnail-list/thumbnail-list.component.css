@@ -1,0 +1,23 @@
+.thumbnail-list-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+
+.thumbnail-item {
+  display: block;
+  vertical-align: bottom;
+  object-fit: cover;
+  cursor: pointer;
+  width: 8rem;
+  height: 8rem;
+
+  &.selected {
+    border: 0.1rem solid #FF0000;
+    box-sizing: border-box; /* Include padding and border in element's width and height */
+    border-radius: 0.5rem;
+    opacity: 0.75;
+    transition: all 0.2s;
+  }
+}
