@@ -15,6 +15,14 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
 
 ### [**Demo**](https://zolcsi.github.io/ngx-simple-gallery/) | [**Changelog**](https://github.com/zolcsi/ngx-simple-gallery/blob/main/CHANGELOG.md)
 
+
+## Versioning
+
+| Gallery     | Angular | Readme                                                       |
+|-------------|---------| ------------------------------------------------------------ |
+| `^18`       | `18+`   | here                                                         |
+
+
 ## Installation
 
 ```sh
@@ -24,13 +32,6 @@ add the following line to your global styles (by default "styles.(scss|css)") if
 ```
 @import '@angular/cdk/overlay-prebuilt.css';
 ```
-
-## Versioning
-
-| Gallery     | Angular | Readme                                                       |
-|-------------|---------| ------------------------------------------------------------ |
-| `^18`       | `18+`   | here                                                         |
-
 
 ## Usage
 

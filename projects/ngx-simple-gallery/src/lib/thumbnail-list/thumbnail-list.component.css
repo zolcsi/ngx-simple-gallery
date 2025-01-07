@@ -1,7 +1,15 @@
-.thumbnail-list-wrapper {
+:host {
+  --selected-thumbnail-color: #b53939;
+}
+
+.thumbnail-container {
   width: 100%;
+}
+
+.thumbnails {
   display: flex;
-  justify-content: center;
+  position: relative;
+  transition: transform 0.4s ease;
   gap: 2px;
 }
 
@@ -14,10 +22,10 @@
   height: 8rem;
 
   &.selected {
-    border: 0.1rem solid #FF0000;
+    border: 0.2rem solid var(--selected-thumbnail-color);
     box-sizing: border-box; /* Include padding and border in element's width and height */
     border-radius: 0.5rem;
-    opacity: 0.75;
-    transition: all 0.2s;
+    opacity: 0.7;
+    transition: all 0.4s ease;
   }
 }
