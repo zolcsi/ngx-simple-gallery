@@ -3,7 +3,7 @@
   <div class="showcase-item">
 
     <div role="presentation" class="close-button" (click)="closeDialog()">
-      <ng-container [ngTemplateOutlet]="closeButton"/>
+      <ng-container [ngTemplateOutlet]="closeButton" />
     </div>
 
     @if (isLoading()) {
@@ -15,19 +15,19 @@
     <img role="presentation" alt="Gallery Image" [src]="imageSource()" [ngClass]="{'loading': isLoading()}" (click)="closeDialog()" (load)="imageLoaded()">
 
     <div role="presentation" class="left-chevron" (click)="loadPrevious()">
-      <ng-container [ngTemplateOutlet]="leftChevron"/>
+      <ng-container [ngTemplateOutlet]="leftChevron" />
     </div>
 
     <div role="presentation" class="right-chevron" (click)="loadNext()">
-      <ng-container [ngTemplateOutlet]="rightChevron"/>
+      <ng-container [ngTemplateOutlet]="rightChevron" />
     </div>
   </div>
 
-  <div class="thumbnail-list">
-    @if (showThumbnailList()) {
+  @if (showThumbnailList()) {
+    <div class="thumbnail-list">
       <lib-thumbnail-list></lib-thumbnail-list>
-    }
-  </div>
+    </div>
+  }
 
 </div>
 
@@ -40,12 +40,12 @@
 
 <ng-template #leftChevron>
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-    <path class="chevron-svg-path" d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z"/>
+    <path class="chevron-svg-path" d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z" />
   </svg>
 </ng-template>
 
 <ng-template #rightChevron>
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-    <path class="chevron-svg-path" d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/>
+    <path class="chevron-svg-path" d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
   </svg>
 </ng-template>
