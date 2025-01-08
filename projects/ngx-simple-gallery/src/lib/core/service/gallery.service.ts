@@ -2,13 +2,14 @@ import { computed, Injectable, signal } from '@angular/core';
 import { GalleryItem } from '../model/gallery-item';
 import { Constants } from '../constants';
 import { ModalConfig } from '../model/modal-config';
+import { ConfigUtils } from '../utils/config-utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GalleryService {
   private readonly isLoading = signal<boolean>(false);
-  private readonly itemNdx = signal<number>(0);
+  private readonly itemNdx = signal<number>(Constants.defaultThumbnailStartIndex);
   private readonly items = signal<GalleryItem[]>([]);
   private readonly showThumbnailList = signal<boolean>(Constants.defaultShowThumbnailList);
 
@@ -24,7 +25,7 @@ export class GalleryService {
 
   public setItemIndex(index: number): void {
     this.isLoading.set(true);
-    this.itemNdx.set(index);
+    this.itemNdx.set(ConfigUtils.normalizeStartIndex(index, this.galleryItems().length));
   }
 
   public applyModalConfig(modalConfig: ModalConfig): void {
