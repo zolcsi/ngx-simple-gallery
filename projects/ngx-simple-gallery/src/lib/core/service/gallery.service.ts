@@ -27,8 +27,13 @@ export class GalleryService {
     this.itemNdx.set(index);
   }
 
-  public setModalConfig(modalConfig: ModalConfig): void {
-    this.showThumbnailList.set(modalConfig.showModalThumbnailList ?? Constants.defaultShowThumbnailList);
+  public applyModalConfig(modalConfig: ModalConfig): void {
+    if (modalConfig.showModalThumbnailList !== undefined) {
+      this.showThumbnailList.set(modalConfig.showModalThumbnailList);
+    }
+    if (modalConfig.startIndex !== undefined) {
+      this.setItemIndex(modalConfig.startIndex);
+    }
   }
 
   public loadNext(): void {

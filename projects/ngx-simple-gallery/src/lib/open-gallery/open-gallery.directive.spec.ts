@@ -13,7 +13,7 @@ describe('OpenGalleryDirective', () => {
     galleryServiceMock = {
       setItemIndex: jest.fn(),
       getItemIndex: signal(0),
-      setModalConfig: jest.fn(),
+      applyModalConfig: jest.fn(),
       setGalleryItems: jest.fn(),
     };
 

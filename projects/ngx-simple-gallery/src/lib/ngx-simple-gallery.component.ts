@@ -29,7 +29,7 @@ export class NgxSimpleGalleryComponent {
 
   @Input({ required: false })
   set modalConfig(modalConfig: ModalConfig) {
-    this.galleryService.setModalConfig(modalConfig);
+    this.galleryService.applyModalConfig(modalConfig);
   }
 
   public constructor() {

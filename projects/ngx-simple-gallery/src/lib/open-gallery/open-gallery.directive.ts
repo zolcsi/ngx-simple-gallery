@@ -28,7 +28,7 @@ export class OpenGalleryDirective {
 
   @Input()
   set modalConfig(modalConfig: ModalConfig) {
-    this.galleryService.setModalConfig(modalConfig);
+    this.galleryService.applyModalConfig(modalConfig);
   }
 
   @HostListener('click') onClick(): void {

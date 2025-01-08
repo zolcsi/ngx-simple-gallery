@@ -9,7 +9,7 @@ import { GalleryItem, ModalConfig, NgxSimpleGalleryComponent, OpenGalleryDirecti
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  public modalConfig: ModalConfig = { showModalThumbnailList: true };
+  public modalConfig: ModalConfig = { showModalThumbnailList: false, startIndex: 2 };
 
   public galleryItems: GalleryItem[] = [
     {
