@@ -22,11 +22,6 @@ export class OpenGalleryDirective {
   }
 
   @Input()
-  set startIndex(index: number) {
-    this.galleryService.setItemIndex(index);
-  }
-
-  @Input()
   set modalConfig(modalConfig: ModalConfig) {
     this.galleryService.applyModalConfig(modalConfig);
   }

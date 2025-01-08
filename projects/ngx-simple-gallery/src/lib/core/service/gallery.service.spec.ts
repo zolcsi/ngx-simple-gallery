@@ -35,7 +35,7 @@ describe('GalleryService', () => {
       expect(service.getIsLoading()).toBeFalsy();
     });
 
-    it('testing getIsLoading() default', () => {
+    it('stopLoading() should top loading indication', () => {
       // arrange
       service.setItemIndex(1);
       expect(service.getIsLoading()).toBeTruthy();

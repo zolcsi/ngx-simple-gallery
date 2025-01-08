@@ -2,17 +2,27 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OpenGalleryDirective } from './open-gallery.directive';
 import { GalleryService } from '../core/service/gallery.service';
 import { Dialog } from '@angular/cdk/dialog';
-import { signal } from '@angular/core';
+import { ElementRef } from '@angular/core';
 
 describe('OpenGalleryDirective', () => {
   let fixture: ComponentFixture<OpenGalleryDirective>;
   let directive: OpenGalleryDirective;
+  let elementRefMock: Partial<ElementRef>;
+  let dialogMock: Partial<Dialog>;
   let galleryServiceMock: Partial<GalleryService>;
 
   beforeEach(async () => {
+    dialogMock = {
+      open: jest.fn(),
+    }
+    elementRefMock = {
+      nativeElement: {
+        style: {
+          cursor: undefined,
+        },
+      },
+    }
     galleryServiceMock = {
-      setItemIndex: jest.fn(),
-      getItemIndex: signal(0),
       applyModalConfig: jest.fn(),
       setGalleryItems: jest.fn(),
     };
@@ -20,7 +30,8 @@ describe('OpenGalleryDirective', () => {
     await TestBed.configureTestingModule({
       imports: [OpenGalleryDirective],
       providers: [
-        { provide: Dialog, useValue: {} },
+        { provide: Dialog, useValue: dialogMock },
+        { provide: ElementRef, useValue: elementRefMock },
         { provide: GalleryService, useValue: galleryServiceMock },
       ],
     }).compileComponents();
@@ -36,11 +47,11 @@ describe('OpenGalleryDirective', () => {
     expect(nativeElement.style.cursor).toBe('pointer');
   });
 
-  it('should set the start index of the gallery service', () => {
-    const startIndex = 2;
-    directive.startIndex = startIndex;
-    expect(galleryServiceMock.getItemIndex).toHaveBeenCalled();
-  });
+  // it('should set the start index of the gallery service', () => {
+  //   const startIndex = 2;
+  //   directive.startIndex = startIndex;
+  //   expect(galleryServiceMock.getItemIndex).toHaveBeenCalled();
+  // });
 
   // it('should set the modal config of the gallery service', () => {
   //   const modalConfig: ModalConfig = {
