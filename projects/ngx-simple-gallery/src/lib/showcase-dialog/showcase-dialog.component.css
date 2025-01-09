@@ -1,4 +1,9 @@
+:host {
+  --background-color: #333333;
+}
+
 .showcase-dialog {
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -9,7 +14,7 @@
   display: flex;
   position: relative;
   overflow: hidden;
-  background-color: #333333;
+  background-color: var(--background-color);
 
   img {
     width: 100%;
@@ -24,7 +29,8 @@
 }
 
 .thumbnail-list {
-  padding: 1rem;
+  background-color: var(--background-color);
+  padding: 0.5rem;
 }
 
 .spinner {
@@ -48,7 +54,7 @@
   right: 0.125rem;
   display: flex;
   padding: 1rem;
-  background-color: #333333;
+  background-color: var(--background-color);
   border-radius: 0.25rem;
   cursor: pointer;
   transition: all 0.2s;

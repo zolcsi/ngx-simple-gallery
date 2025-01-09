@@ -7,13 +7,21 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
  - mobile friendly
  - lightweight
  - use images from any source
- - the gallery takes up as much space as you let it
+ - two main forms of use: component selector or directive
  - navigate forwards/backwards with keyboard arrows or touch/click on arrows in the showcase dialog
  - loading spinner while loading
  - smooth animation of the next item
  - you can define a thumbnail or leave it empty. It is recommended to provide it though, because of performance reasons.
 
 ### [**Demo**](https://zolcsi.github.io/ngx-simple-gallery/) | [**Changelog**](https://github.com/zolcsi/ngx-simple-gallery/blob/main/CHANGELOG.md)
+
+
+## Versioning
+
+| Gallery     | Angular | Readme                                                       |
+|-------------|---------| ------------------------------------------------------------ |
+| `^18`       | `18+`   | here                                                         |
+
 
 ## Installation
 
@@ -24,13 +32,6 @@ add the following line to your global styles (by default "styles.(scss|css)") if
 ```
 @import '@angular/cdk/overlay-prebuilt.css';
 ```
-
-## Versioning
-
-| Gallery     | Angular | Readme                                                       |
-|-------------|---------| ------------------------------------------------------------ |
-| `^18`       | `18+`   | here                                                         |
-
 
 ## Usage
 
@@ -46,13 +47,14 @@ import { NgxSimpleGalleryComponent } from '@zolcsi/ngx-simple-gallery';
 export class AppComponent {}
 ```
 
-### 2. List the gallery items
+### 2. Add the gallery items
 
 ```js
 import { GalleryItem } from '@zolcsi/ngx-simple-gallery';
 
 @Component({...})
 export class AppComponent {
+  
   galleryItems: GalleryItem[] = [
     { 
       src: '/img/image1.jpg' 
@@ -64,29 +66,60 @@ export class AppComponent {
 }
 ```
 
-### 3. Render the gallery with the items assembled previously
+### 3. You may configure the gallery with custom settings (optional)
 
-```html
-<ngx-simple-gallery [galleryItems]="galleryItems"></ngx-simple-gallery>
+```js
+import { GalleryItem } from '@zolcsi/ngx-simple-gallery';
+
+@Component({...})
+export class AppComponent {
+  
+  galleryItems: GalleryItem[] = [...];
+  
+  galleryConfig: GalleryConfig = {
+    emptyMessage: 'No images found in the galleryItems',
+    galleryThumbnailSize: 140,
+    modalStartIndex: 2,
+    showModalThumbnailList: false
+  }
+}
 ```
 
-## Parameters
+### 4. Render the gallery with the items assembled previously (2 ways)
 
-### Input parameters
-
-| Name              | Required | Type          | Default                               | Description                                        |                              
-|-------------------|----------|---------------|---------------------------------------|----------------------------------------------------| 
-| emptyMessage      | no       | string        | 'Empty gallery, no images  provided.' | Message to show in case empty items provided       |
-| galleryItems      | yes      | GalleryItem[] | [ ]                                   | Contains the list of images                        |
-| showThumbnailList | no       | boolean       | true                                  | Whether to show the thumbnail list in modal view   |                                      |
-| thumbnailSize     | no       | number        | 160                                   | The width/height of the thumbnails in px           |
-
-### With all the input parameters set:
-
+#### 4a. Using the component selector (this renders the images on the page)
 ```html
-<ngx-simple-gallery [galleryItems]="galleryItems"
-                    [showThumbnailList]="false"
-                    [thumbnailSize]="65"
-                    emptyMessage="Please provide some images">  
-</ngx-simple-gallery>
+<ngx-simple-gallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
 ```
+or
+
+#### 4b. Using the directive on your own element (this does not render the items on the page, directly opens the modal view)
+```html
+<p simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">My Gallery</p>
+```
+
+
+## Input parameters
+
+| Name           | Required | Type          | Default | Description                          |                              
+|----------------|----------|---------------|---------|--------------------------------------|
+| galleryItems   | yes      | GalleryItem[] | [ ]     | Contains the list of images          |
+| galleryConfig  | no       | GalleryConfig |         | Custom configuration for the gallery |
+
+
+### GalleryItem (represents one single image)
+
+| Name      | Required | Type    | Default | Description                                                      |                              
+|-----------|----------|---------|---------|------------------------------------------------------------------|
+| src       | yes      | string  | -       | Source of the image                                              |
+| thumbnail | no       | string  | src     | Thumbnail of the image. If not provided, the source will be used |
+
+
+### GalleryConfig (custom configuration for the gallery)
+
+| Name                   | Required | Type    | Default                              | Description                                                                     | Applicable           |                            
+|------------------------|----------|---------|--------------------------------------|---------------------------------------------------------------------------------|----------------------|
+| emptyMessage           | no       | string  | 'Empty gallery, no images provided.' | Message to show in case empty items provided                                    | component, directive |
+| galleryThumbnailSize   | no       | number  | 160                                  | The width/height of the thumbnails in px in the gallery (not in the modal view) | component            |
+| modalStartIndex        | no       | number  | 0                                    | The index of the first image to show in the modal view                          | directive            |
+| showModalThumbnailList | no       | boolean | true                                 | Whether to show the thumbnail list in the modal view                            | component, directive |                                     

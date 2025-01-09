@@ -1,79 +1,28 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { GalleryItem, NgxSimpleGalleryComponent, OpenGalleryDirective } from 'ngx-simple-gallery';
-import { ModalConfig } from '../../projects/ngx-simple-gallery/src/lib/core/model/modal-config';
-import { NgForOf } from '@angular/common';
+import { Component } from '@angular/core';
+import { GalleryItem, GalleryConfig, NgxSimpleGalleryComponent, SimpleGalleryDirective } from 'ngx-simple-gallery';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgxSimpleGalleryComponent, OpenGalleryDirective, NgForOf],
+  imports: [NgxSimpleGalleryComponent, SimpleGalleryDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements AfterViewInit {
-  public modalConfig: ModalConfig = { showModalThumbnailList: true };
-
-  @ViewChild('thumbnails', { static: false }) thumbnails!: ElementRef;
-
-  images = [
-    { src: 'https://picsum.photos/id/186/600/600' },
-    { src: 'https://picsum.photos/id/187/600/600' },
-    { src: 'https://picsum.photos/id/188/600/600' },
-    { src: 'https://picsum.photos/id/189/600/600' },
-    { src: 'https://picsum.photos/id/190/600/600' },
-    { src: 'https://picsum.photos/id/191/600/600' },
-    { src: 'https://picsum.photos/id/192/600/600' },
-    { src: 'https://picsum.photos/id/193/600/600' },
-  ];
-
-  selectedIndex = 0;
-  transformStyle = 'translateX(0px)';
-  transitionStyle = 'transform 0.3s ease';
-
-  ngAfterViewInit() {
-    this.updateTransform();
-  }
-
-  selectImage(index: number) {
-    this.selectedIndex = index;
-    this.updateTransform();
-  }
-
-  navigateLeft() {
-    if (this.selectedIndex > 0) {
-      this.selectedIndex--;
-      this.updateTransform();
-    }
-  }
-
-  navigateRight() {
-    if (this.selectedIndex < this.images.length - 1) {
-      this.selectedIndex++;
-      this.updateTransform();
-    }
-  }
-
-  updateTransform() {
-    const thumbnailsEl = this.thumbnails.nativeElement;
-    const thumbnailsChildren = Array.from(thumbnailsEl.children) as HTMLElement[];
-    const selectedThumbnail = thumbnailsChildren[this.selectedIndex];
-
-    const containerWidth = thumbnailsEl.parentElement.clientWidth;
-    const selectedOffsetLeft = selectedThumbnail.offsetLeft;
-    const selectedWidth = selectedThumbnail.offsetWidth;
-
-    // Calculate translateX to center the selected image
-    const translateX = -(selectedOffsetLeft - containerWidth / 2 + selectedWidth / 2);
-    this.transformStyle = `translateX(${translateX}px)`;
-  }
+export class AppComponent {
+  public galleryConfig: GalleryConfig = {
+    emptyMessage: 'Images not found',
+    galleryThumbnailSize: 140,
+    showModalThumbnailList: true,
+    modalStartIndex: 2,
+  };
 
   public galleryItems: GalleryItem[] = [
     {
-      src: 'https://picsum.photos/id/237/2000/3000',
+      src: 'https://picsum.photos/id/237/1200/1800',
       thumbnail: 'https://picsum.photos/id/237/160/160',
     },
     {
-      src: 'https://picsum.photos/id/238/2000/3000',
+      src: 'https://picsum.photos/id/238/1200/1800',
       thumbnail: 'https://picsum.photos/id/238/160/160',
     },
     {
@@ -81,7 +30,7 @@ export class AppComponent implements AfterViewInit {
       thumbnail: 'https://picsum.photos/id/155/160/160',
     },
     {
-      src: 'https://picsum.photos/id/122/2000/3000',
+      src: 'https://picsum.photos/id/122/1200/1800',
       thumbnail: 'https://picsum.photos/id/122/160/160',
     },
     {

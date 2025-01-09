@@ -1,24 +1,9 @@
-<!--<h1>ngx-simple-gallery</h1>-->
-<!--<div class="gallery">-->
-<!--  <ngx-simple-gallery [galleryItems]="galleryItems"></ngx-simple-gallery>-->
-<!--</div>-->
+<h1>ngx-simple-gallery</h1>
+<div class="gallery">
+  <ngx-simple-gallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
+</div>
 
 <hr/>
 
 <h1>using Directive</h1>
-<p [openGallery]="3" [galleryItems]="galleryItems" [modalConfig]="modalConfig">My Gallery</p>
-
-
-<div class="thumbnail-container">
-  <button class="nav-btn left" (click)="navigateLeft()">&#8592;</button>
-  <div class="thumbnail-wrapper">
-    <div #thumbnails class="thumbnails" [style.transform]="transformStyle" [style.transition]="transitionStyle">
-      <img role="presentation" *ngFor="let img of images; let i = index"
-           [src]="img.src"
-           [class.active]="i === selectedIndex"
-           (click)="selectImage(i)"  alt="aaa"/>
-    </div>
-  </div>
-  <button class="nav-btn right" (click)="navigateRight()">&#8594;</button>
-</div>
-
+<p simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">My Gallery</p>

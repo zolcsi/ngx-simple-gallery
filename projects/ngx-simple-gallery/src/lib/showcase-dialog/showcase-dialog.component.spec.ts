@@ -5,10 +5,20 @@ import { DebugElement, signal, WritableSignal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { GalleryService } from '../core/service/gallery.service';
 import spyOn = jest.spyOn;
+import { GalleryItem } from '../core/model/gallery-item';
+import { GalleryConfig } from '../core/model/gallery-config';
+import { ConfigUtils } from '../core/utils/config-utils';
 
-const galleryItem1 = {
-  src: 'https://picsum.photos/id/101/1200/1800',
-};
+const galleryItems: GalleryItem[] = [
+  {
+    src: 'image-number-one',
+    thumbnail: 'thumbnail number 1'
+  },
+  {
+    src: 'image-number-two',
+    thumbnail: 'thumbnail number 2'
+  }
+];
 
 describe('ImageDialogComponent', () => {
   let component: ShowcaseDialogComponent;
@@ -17,7 +27,9 @@ describe('ImageDialogComponent', () => {
   let dialogRefMock: { close: jest.Mock };
   let galleryServiceMock: {
     imageSource: WritableSignal<string>;
+    galleryItems: WritableSignal<GalleryItem[]>;
     getIsLoading: WritableSignal<boolean>;
+    getLibConfig: WritableSignal<GalleryConfig>;
     loadNext: jest.Mock;
     loadPrev: jest.Mock;
     stopLoading: jest.Mock;
@@ -26,8 +38,10 @@ describe('ImageDialogComponent', () => {
   beforeEach(async () => {
     dialogRefMock = { close: jest.fn() };
     galleryServiceMock = {
-      imageSource: signal(galleryItem1.src),
+      imageSource: signal(galleryItems[0].src),
+      galleryItems: signal([]),
       getIsLoading: signal(false),
+      getLibConfig: signal({ ...ConfigUtils.defaultLibConfig(), showModalThumbnailList: false }),
       loadNext: jest.fn(),
       loadPrev: jest.fn(),
       stopLoading: jest.fn(),
@@ -45,6 +59,8 @@ describe('ImageDialogComponent', () => {
         },
       ],
     }).compileComponents();
+
+    galleryServiceMock.galleryItems.set(galleryItems);
 
     fixture = TestBed.createComponent(ShowcaseDialogComponent);
     component = fixture.componentInstance;
@@ -74,7 +90,7 @@ describe('ImageDialogComponent', () => {
     });
 
     it('should check the src of the image', () => {
-      expect(imageDe.nativeElement.src).toEqual(galleryItem1.src);
+      expect(imageDe.nativeElement.src).toContain(galleryItems[0].src);
     });
 
     it('should close the dialog by clicking on the image anywhere', () => {
@@ -190,10 +206,14 @@ describe('ImageDialogComponent', () => {
 
   describe('testing imageLoaded()', () => {
     it('should call the stopLoading()', () => {
+      // arrange
       const galleryServiceSpyOnStopLoading = spyOn(galleryServiceMock, 'stopLoading');
+      const imageDe = componentDe.query(By.css('img'));
 
-      component.imageLoaded();
+      // act
+      imageDe.nativeElement.dispatchEvent(new Event('load'));
 
+      // assert
       expect(galleryServiceSpyOnStopLoading).toHaveBeenCalledTimes(1);
     });
   });

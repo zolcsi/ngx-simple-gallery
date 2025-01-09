@@ -1,10 +1,13 @@
-<div class="thumbnail-list-wrapper">
-  @for (image of items(); track image.src; let i = $index) {
+<div class="thumbnail-container">
+  <div #thumbnails class="thumbnails" [style.transform]="transformStyle()">
+    @for (item of items(); track item.src; let i = $index) {
       <img class="thumbnail-item"
            role="presentation"
            [ngClass]="{'selected': selectedItemIndex() === i}"
-           [src]="image.thumbnail ?? image.src"
+           [src]="item.src"
            [alt]="'Gallery image ' + i"
-           (click)="selectItem(i)"/>
-  }
+           (click)="selectItem(i)"
+           (load)="itemLoaded()" />
+    }
+  </div>
 </div>

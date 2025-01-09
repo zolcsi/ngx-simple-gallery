@@ -1,5 +1,6 @@
 export const Constants = {
   defaultEmptyMessage: 'Empty gallery, no images provided.',
-  defaultShowThumbnailList: true,
-  defaultThumbnailSize: 160,
+  defaultGalleryThumbnailSize: 160,
+  defaultModalStartIndex: 0,
+  defaultShowModalThumbnailList: true,
 } as const;
