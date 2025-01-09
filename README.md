@@ -75,7 +75,7 @@ or
 
 #### 3b. Using the directive (this does not render the items on the page)
 ```html
-<p [openGallery]="galleryItems">My Gallery</p>
+<p simpleGallery [galleryItems]="galleryItems">My Gallery</p>
 ```
 
 

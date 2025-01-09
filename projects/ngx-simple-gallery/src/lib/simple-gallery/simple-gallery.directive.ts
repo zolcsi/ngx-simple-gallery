@@ -7,16 +7,16 @@ import { GalleryItem } from '../core/model/gallery-item';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: '[openGallery]',
+  selector: '[simpleGallery]',
   standalone: true,
 })
-export class OpenGalleryDirective {
+export class SimpleGalleryDirective {
   private readonly dialog = inject(Dialog);
   private readonly elementRef = inject(ElementRef);
   private readonly galleryService = inject(GalleryService);
   private readonly renderer = inject(Renderer2);
 
-  public readonly openGallery = input([] as GalleryItem[]);
+  public readonly simpleGallery = input([] as GalleryItem[], { alias: 'galleryItems'});
 
   constructor() {
     this.elementRef.nativeElement.style.cursor = 'pointer';
@@ -28,8 +28,8 @@ export class OpenGalleryDirective {
   }
 
   @HostListener('click') onClick(): void {
-    if (this.openGallery().length > 0) {
-      this.galleryService.setGalleryItems(this.openGallery());
+    if (this.simpleGallery().length > 0) {
+      this.galleryService.setGalleryItems(this.simpleGallery());
       this.dialog.open(ShowcaseDialogComponent);
     } else {
       this.elementRef.nativeElement.style.backgroundColor = 'red';

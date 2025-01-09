@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
-import { GalleryItem, GalleryConfig, NgxSimpleGalleryComponent, OpenGalleryDirective } from 'ngx-simple-gallery';
+import { GalleryItem, GalleryConfig, NgxSimpleGalleryComponent, SimpleGalleryDirective } from 'ngx-simple-gallery';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgxSimpleGalleryComponent, OpenGalleryDirective],
+  imports: [NgxSimpleGalleryComponent, SimpleGalleryDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  public galleryConfig: GalleryConfig = { emptyMessage: 'Images not found', galleryThumbnailSize: 140, showModalThumbnailList: true, modalStartIndex: 2 };
+  public galleryConfig: GalleryConfig = {
+    emptyMessage: 'Images not found',
+    galleryThumbnailSize: 140,
+    showModalThumbnailList: true,
+    modalStartIndex: 2,
+  };
 
   public galleryItems: GalleryItem[] = [
     {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { OpenGalleryDirective } from './open-gallery.directive';
+import { SimpleGalleryDirective } from './simple-gallery.directive';
 import { GalleryService } from '../core/service/gallery.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, ElementRef, Renderer2, signal, WritableSignal } from '@angular/core';
@@ -28,15 +28,15 @@ const galleryItems: GalleryItem[] = [
 
 @Component({
   standalone: true,
-  template: ` <h2 [openGallery]="galleryItems" [galleryConfig]="galleryConfig">Click here to open gallery</h2>`,
-  imports: [OpenGalleryDirective]
+  template: ` <h2 simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">Click here to open gallery</h2>`,
+  imports: [SimpleGalleryDirective]
 })
 class TestComponent {
   galleryItems = galleryItems;
   galleryConfig = galleryConfig;
 }
 
-describe('OpenGalleryDirective', () => {
+describe('SimpleGalleryDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
   let elementRefMock: Partial<ElementRef>;
   let dialogMock: Partial<Dialog>;
@@ -71,7 +71,7 @@ describe('OpenGalleryDirective', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [OpenGalleryDirective, TestComponent],
+      imports: [SimpleGalleryDirective, TestComponent],
       providers: [
         { provide: Dialog, useValue: dialogMock },
         { provide: ElementRef, useValue: elementRefMock },
@@ -87,8 +87,8 @@ describe('OpenGalleryDirective', () => {
   it('should set the cursor style to pointer on initiation', () => {
     // arrange
     const debugElement = fixture.debugElement;
-    const openGalleryDirective = debugElement.query(By.directive(OpenGalleryDirective));
-    const cursorStyle = openGalleryDirective.nativeElement.style.cursor;
+    const simpleGalleryDirective = debugElement.query(By.directive(SimpleGalleryDirective));
+    const cursorStyle = simpleGalleryDirective.nativeElement.style.cursor;
 
     // assert
     expect(cursorStyle).toBe('pointer');
@@ -137,10 +137,10 @@ describe('OpenGalleryDirective', () => {
     expect(galleryServiceMock.setGalleryItems).not.toHaveBeenCalled();
     expect(dialogMock.open).not.toHaveBeenCalled();
 
-    const openGalleryDirective = debugElement.query(By.directive(OpenGalleryDirective));
-    expect(openGalleryDirective.nativeElement.style.backgroundColor).toEqual('red');
-    expect(openGalleryDirective.nativeElement.style.padding).toEqual('0.5rem 1rem 0.5rem 1rem');
-    expect(openGalleryDirective.nativeElement.style.fontSize).toEqual('1.5rem');
-    expect(openGalleryDirective.nativeElement.innerHTML).toEqual('<p>Empty gallery, no images provided.</p>');
+    const simpleGalleryDirective = debugElement.query(By.directive(SimpleGalleryDirective));
+    expect(simpleGalleryDirective.nativeElement.style.backgroundColor).toEqual('red');
+    expect(simpleGalleryDirective.nativeElement.style.padding).toEqual('0.5rem 1rem 0.5rem 1rem');
+    expect(simpleGalleryDirective.nativeElement.style.fontSize).toEqual('1.5rem');
+    expect(simpleGalleryDirective.nativeElement.innerHTML).toEqual('<p>Empty gallery, no images provided.</p>');
   });
 });

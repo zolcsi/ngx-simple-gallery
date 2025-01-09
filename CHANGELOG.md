@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- possibility to open modal view from your html element with directive ```<p [openGallery]="galleryItems">Open my gallery</p>```
+- possibility to open modal view from your html element with directive ```<p simpleGallery [galleryItems]="galleryItems">Open my gallery</p>```
 - list of thumbnails in modal view
 - configurable modal view (showThumbnailList, startIndex)
 
