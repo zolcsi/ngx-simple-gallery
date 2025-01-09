@@ -6,6 +6,8 @@ import { By } from '@angular/platform-browser';
 import { GalleryService } from '../core/service/gallery.service';
 import spyOn = jest.spyOn;
 import { GalleryItem } from '../core/model/gallery-item';
+import { GalleryConfig } from '../core/model/gallery-config';
+import { ConfigUtils } from '../core/utils/config-utils';
 
 const galleryItems: GalleryItem[] = [
   {
@@ -27,7 +29,7 @@ describe('ImageDialogComponent', () => {
     imageSource: WritableSignal<string>;
     galleryItems: WritableSignal<GalleryItem[]>;
     getIsLoading: WritableSignal<boolean>;
-    getShowThumbnailList: WritableSignal<boolean>;
+    getLibConfig: WritableSignal<GalleryConfig>;
     loadNext: jest.Mock;
     loadPrev: jest.Mock;
     stopLoading: jest.Mock;
@@ -39,7 +41,7 @@ describe('ImageDialogComponent', () => {
       imageSource: signal(galleryItems[0].src),
       galleryItems: signal([]),
       getIsLoading: signal(false),
-      getShowThumbnailList: signal(false),
+      getLibConfig: signal({ ...ConfigUtils.defaultLibConfig(), showModalThumbnailList: false }),
       loadNext: jest.fn(),
       loadPrev: jest.fn(),
       stopLoading: jest.fn(),

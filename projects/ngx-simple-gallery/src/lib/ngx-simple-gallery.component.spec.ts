@@ -7,6 +7,8 @@ import { Dialog } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
 import { GalleryItem } from './core/model/gallery-item';
 import { GalleryService } from './core/service/gallery.service';
+import { ConfigUtils } from './core/utils/config-utils';
+import { GalleryConfig } from './core/model/gallery-config';
 import spyOn = jest.spyOn;
 
 const galleryItemsFixture: GalleryItem[] = [
@@ -29,8 +31,9 @@ describe('GalleryComponent', () => {
   let fixture: ComponentFixture<NgxSimpleGalleryComponent>;
   let dialogMock: { open: jest.Mock };
   let galleryServiceMock: {
-    applyModalConfig: jest.Mock;
+    applyGalleryConfig: jest.Mock;
     galleryItems: WritableSignal<GalleryItem[]>;
+    getLibConfig: WritableSignal<GalleryConfig>;
     setGalleryItems: jest.Mock;
     setItemIndex: jest.Mock;
   };
@@ -38,8 +41,9 @@ describe('GalleryComponent', () => {
   beforeEach(async () => {
     dialogMock = { open: jest.fn() };
     galleryServiceMock = {
-      applyModalConfig: jest.fn(),
+      applyGalleryConfig: jest.fn(),
       galleryItems: signal([]),
+      getLibConfig: signal(ConfigUtils.defaultLibConfig()),
       setGalleryItems: jest.fn(),
       setItemIndex: jest.fn(),
     };
@@ -83,16 +87,16 @@ describe('GalleryComponent', () => {
     });
   });
 
-  describe('testing modalConfig', () => {
-    it('should take over the modalConfig and apply it', () => {
+  describe('testing galleryConfig', () => {
+    it('should take over the galleryConfig and apply it', () => {
       // arrange
-      jest.spyOn(galleryServiceMock, 'applyModalConfig');
+      jest.spyOn(galleryServiceMock, 'applyGalleryConfig');
 
       // act
-      component.modalConfig = { showModalThumbnailList: true, startIndex: 0 };
+      component.galleryConfig = { showModalThumbnailList: true, modalStartIndex: 0 };
 
       // assert
-      expect(galleryServiceMock.applyModalConfig).toHaveBeenCalledTimes(1);
+      expect(galleryServiceMock.applyGalleryConfig).toHaveBeenCalledTimes(1);
     });
 
     it('should display the empty gallery message', () => {
@@ -135,14 +139,14 @@ describe('GalleryComponent', () => {
     });
 
     it('should match the width of the images', () => {
-      const defaultThumbnailSize = Constants.defaultThumbnailSize;
+      const defaultThumbnailSize = Constants.defaultGalleryThumbnailSize;
       const imagesDe = componentDe.queryAll(imagesCss);
       expect(imagesDe[0].nativeElement.width).toEqual(defaultThumbnailSize);
       expect(imagesDe[1].nativeElement.width).toEqual(defaultThumbnailSize);
     });
 
     it('should match the width and height of the images', () => {
-      const defaultThumbnailSize = Constants.defaultThumbnailSize;
+      const defaultThumbnailSize = Constants.defaultGalleryThumbnailSize;
       const imagesDe = componentDe.queryAll(imagesCss);
       expect(imagesDe[0].nativeElement.height).toEqual(defaultThumbnailSize);
       expect(imagesDe[1].nativeElement.height).toEqual(defaultThumbnailSize);
@@ -160,8 +164,7 @@ describe('GalleryComponent', () => {
 
     beforeEach(() => {
       galleryServiceMock.galleryItems.set(galleryItemsFixture);
-      fixture.componentRef.setInput('galleryItems', galleryItemsFixture);
-      fixture.componentRef.setInput('thumbnailSize', customThumbnailSize);
+      galleryServiceMock.getLibConfig.set({ galleryThumbnailSize: customThumbnailSize });
       fixture.detectChanges();
       componentDe = fixture.debugElement;
     });

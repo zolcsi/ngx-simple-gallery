@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, HostListener, inject, Signal } from '@angular/core';
 import { DialogRef } from '@angular/cdk/dialog';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { GalleryService } from '../core/service/gallery.service';
@@ -22,7 +22,7 @@ export class ShowcaseDialogComponent {
   constructor() {
     this.imageSource = this.galleryService.imageSource;
     this.isLoading = this.galleryService.getIsLoading;
-    this.showThumbnailList = this.galleryService.getShowThumbnailList;
+    this.showThumbnailList = computed(() => this.galleryService.getLibConfig().showModalThumbnailList);
   }
 
   @HostListener('document:keydown.arrowLeft', ['$event'])

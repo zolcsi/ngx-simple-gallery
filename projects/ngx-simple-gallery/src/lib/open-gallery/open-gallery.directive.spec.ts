@@ -2,16 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OpenGalleryDirective } from './open-gallery.directive';
 import { GalleryService } from '../core/service/gallery.service';
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2, signal, WritableSignal } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ModalConfig } from '../core/model/modal-config';
+import { GalleryConfig } from '../core/model/gallery-config';
 import { GalleryItem } from '../core/model/gallery-item';
 import { click } from '../../../testing/test-utilities';
 import { ShowcaseDialogComponent } from '../showcase-dialog/showcase-dialog.component';
+import { ConfigUtils } from '../core/utils/config-utils';
 
-const modalConfig: ModalConfig = {
+const galleryConfig: GalleryConfig = {
+  emptyMessage: 'Gallery is empty',
   showModalThumbnailList: true,
-  startIndex: 1
+  modalStartIndex: 1
 };
 const galleryItems: GalleryItem[] = [
   {
@@ -26,12 +28,12 @@ const galleryItems: GalleryItem[] = [
 
 @Component({
   standalone: true,
-  template: ` <h2 [openGallery]="galleryItems" [modalConfig]="modalConfig">Click here to open gallery</h2>`,
+  template: ` <h2 [openGallery]="galleryItems" [galleryConfig]="galleryConfig">Click here to open gallery</h2>`,
   imports: [OpenGalleryDirective]
 })
 class TestComponent {
   galleryItems = galleryItems;
-  modalConfig = modalConfig;
+  galleryConfig = galleryConfig;
 }
 
 describe('OpenGalleryDirective', () => {
@@ -39,7 +41,8 @@ describe('OpenGalleryDirective', () => {
   let elementRefMock: Partial<ElementRef>;
   let dialogMock: Partial<Dialog>;
   let galleryServiceMock: {
-    applyModalConfig: jest.Mock,
+    applyGalleryConfig: jest.Mock,
+    getLibConfig: WritableSignal<GalleryConfig>,
     setGalleryItems: jest.Mock,
   };
   let rendererMock: Partial<Renderer2>;
@@ -59,7 +62,8 @@ describe('OpenGalleryDirective', () => {
       }
     };
     galleryServiceMock = {
-      applyModalConfig: jest.fn(),
+      applyGalleryConfig: jest.fn(),
+      getLibConfig: signal({ ...ConfigUtils.defaultLibConfig() }),
       setGalleryItems: jest.fn()
     };
     rendererMock = {
@@ -93,10 +97,10 @@ describe('OpenGalleryDirective', () => {
   it('should set the modal config on initiation', () => {
 
     // arrange
-    jest.spyOn(galleryServiceMock, 'applyModalConfig');
+    jest.spyOn(galleryServiceMock, 'applyGalleryConfig');
 
     // assert
-    expect(galleryServiceMock.applyModalConfig).toHaveBeenCalledWith(modalConfig);
+    expect(galleryServiceMock.applyGalleryConfig).toHaveBeenCalledWith(galleryConfig);
   });
 
   it('should set the gallery items and open the modal dialog on click', () => {
@@ -115,7 +119,7 @@ describe('OpenGalleryDirective', () => {
     expect(dialogMock.open).toHaveBeenCalledWith(ShowcaseDialogComponent);
   });
 
-  it('should display a message, that the gallery is empty, on click', () => {
+  it('should display a message, when the gallery is empty, on click', () => {
     // arrange
     jest.spyOn(galleryServiceMock, 'setGalleryItems');
     jest.spyOn(dialogMock, 'open');
@@ -137,6 +141,6 @@ describe('OpenGalleryDirective', () => {
     expect(openGalleryDirective.nativeElement.style.backgroundColor).toEqual('red');
     expect(openGalleryDirective.nativeElement.style.padding).toEqual('0.5rem 1rem 0.5rem 1rem');
     expect(openGalleryDirective.nativeElement.style.fontSize).toEqual('1.5rem');
-    expect(openGalleryDirective.nativeElement.innerHTML).toEqual('<p>Gallery is empty. Provide items through [openGallery]="arrayOfGalleryItems"</p>');
+    expect(openGalleryDirective.nativeElement.innerHTML).toEqual('<p>Empty gallery, no images provided.</p>');
   });
 });

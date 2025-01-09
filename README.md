@@ -7,7 +7,7 @@ A simple gallery lib for Angular [18]. It displays all the images as thumbnails 
  - mobile friendly
  - lightweight
  - use images from any source
- - the gallery takes up as much space as you let it
+ - two main forms of use: component selector or directive
  - navigate forwards/backwards with keyboard arrows or touch/click on arrows in the showcase dialog
  - loading spinner while loading
  - smooth animation of the next item
@@ -65,11 +65,19 @@ export class AppComponent {
 }
 ```
 
-### 3. Render the gallery with the items assembled previously
+### 3. Render the gallery with the items assembled previously (2 ways)
 
+#### 3a. Using the component selector (this renders the items on the page)
 ```html
 <ngx-simple-gallery [galleryItems]="galleryItems"></ngx-simple-gallery>
 ```
+or
+
+#### 3b. Using the directive (this does not render the items on the page)
+```html
+<p [openGallery]="galleryItems">My Gallery</p>
+```
+
 
 ## Parameters
 

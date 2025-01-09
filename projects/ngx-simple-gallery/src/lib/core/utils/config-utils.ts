@@ -1,3 +1,6 @@
+import { Constants } from '../constants';
+import { LibConfig } from '../model/lib-config';
+
 export class ConfigUtils {
   static normalizeStartIndex(startIndex: number, numOfItems: number): number {
     let result: number;
@@ -17,5 +20,14 @@ export class ConfigUtils {
     }
 
     return result;
+  }
+
+  static defaultLibConfig(): LibConfig {
+    return {
+      emptyMessage: Constants.defaultEmptyMessage,
+      galleryThumbnailSize: Constants.defaultGalleryThumbnailSize,
+      modalStartIndex: Constants.defaultModalStartIndex,
+      showModalThumbnailList: Constants.defaultShowModalThumbnailList,
+    };
   }
 }

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { GalleryService } from './gallery.service';
 import { GalleryItem } from '../model/gallery-item';
-import { ModalConfig } from '../model/modal-config';
+import { GalleryConfig } from '../model/gallery-config';
 import { Constants } from '../constants';
 
 const galleryItemsFixture: GalleryItem[] = [
@@ -78,73 +78,130 @@ describe('GalleryService', () => {
     });
   });
 
-  describe('testing applyModalConfig()', () => {
+  describe('testing applyGalleryConfig()', () => {
 
     beforeEach(() => {
       service.setGalleryItems(galleryItemsFixture);
     });
 
-    describe('testing showModalThumbnailList config attribute', () => {
-      it('should set showModalThumbnailList true', () => {
-        const config: ModalConfig = { showModalThumbnailList: true };
-
-        // act
-        service.applyModalConfig(config);
-
-        // assert
-        expect(service.getShowThumbnailList()).toBeTruthy();
-      });
-
-      it('should set showModalThumbnailList false', () => {
-        const config: ModalConfig = { showModalThumbnailList: false };
-
-        // act
-        service.applyModalConfig(config);
-
-        // assert
-        expect(service.getShowThumbnailList()).toBeFalsy();
-      });
-
+    describe('testing emptyMessage config attribute', () => {
       it('should be the default when not set', () => {
         // assert
-        expect(service.getShowThumbnailList()).toEqual(Constants.defaultShowThumbnailList);
+        expect(service.getLibConfig().emptyMessage).toEqual(Constants.defaultEmptyMessage);
+      });
+
+      it('should set emptyMessage to a new value', () => {
+        const config: GalleryConfig = { emptyMessage: 'new empty message' };
+
+        // act
+        service.applyGalleryConfig(config);
+
+        // assert
+        expect(service.getLibConfig().emptyMessage).toEqual('new empty message');
+      });
+
+      it('should not set emptyMessage when it is not provided', () => {
+        const config: GalleryConfig = { };
+
+        // act
+        service.applyGalleryConfig(config);
+
+        // assert
+        expect(service.getLibConfig().emptyMessage).toEqual(Constants.defaultEmptyMessage)
       });
     });
 
-    describe('testing startIndex config attribute', () => {
-      it('should set startIndex 1', () => {
-        const config: ModalConfig = { startIndex: 1 };
+    describe('testing galleryThumbnailSize config attribute', () => {
+      it('should be the default when not set', () => {
+        // assert
+        expect(service.getLibConfig().galleryThumbnailSize).toEqual(Constants.defaultGalleryThumbnailSize);
+      });
+
+      it('should set galleryThumbnailSize to a new value', () => {
+        const config: GalleryConfig = { galleryThumbnailSize: 123 };
 
         // act
-        service.applyModalConfig(config);
+        service.applyGalleryConfig(config);
 
         // assert
+        expect(service.getLibConfig().galleryThumbnailSize).toEqual(123);
+      });
+
+      it('should not set galleryThumbnailSize when it is not provided', () => {
+        const config: GalleryConfig = { };
+
+        // act
+        service.applyGalleryConfig(config);
+
+        // assert
+        expect(service.getLibConfig().galleryThumbnailSize).toEqual(Constants.defaultGalleryThumbnailSize)
+      });
+    });
+
+    describe('testing modalStartIndex config attribute', () => {
+      it('should be the default when not set', () => {
+        expect(service.getLibConfig().modalStartIndex).toEqual(Constants.defaultModalStartIndex);
+        expect(service.getItemIndex()).toEqual(Constants.defaultModalStartIndex);
+      });
+
+      it('should set modalStartIndex 1', () => {
+        const config: GalleryConfig = { modalStartIndex: 1 };
+
+        // act
+        service.applyGalleryConfig(config);
+
+        // assert
+        expect(service.getLibConfig().modalStartIndex).toEqual(1);
         expect(service.getItemIndex()).toEqual(1);
       });
 
       it('should set startIndex 0', () => {
-        const config: ModalConfig = { startIndex: 0 };
+        const config: GalleryConfig = { modalStartIndex: 0 };
 
         // act
-        service.applyModalConfig(config);
+        service.applyGalleryConfig(config);
 
         // assert
+        expect(service.getLibConfig().modalStartIndex).toEqual(0);
         expect(service.getItemIndex()).toEqual(0);
       });
 
-      it('should set startIndex -1', () => {
-        const config: ModalConfig = { startIndex: -1 };
+      it('should set modalStartIndex -1, but itemIndex is normalized', () => {
+        const config: GalleryConfig = { modalStartIndex: -1 };
 
         // act
-        service.applyModalConfig(config);
+        service.applyGalleryConfig(config);
 
         // assert
+        expect(service.getLibConfig().modalStartIndex).toEqual(-1);
         expect(service.getItemIndex()).toEqual(0);
       });
+    });
 
+    describe('testing showModalThumbnailList config attribute', () => {
       it('should be the default when not set', () => {
         // assert
-        expect(service.getItemIndex()).toEqual(Constants.defaultThumbnailStartIndex);
+        expect(service.getLibConfig().showModalThumbnailList).toEqual(Constants.defaultShowModalThumbnailList);
+      });
+
+      it('should set showModalThumbnailList true', () => {
+        const config: GalleryConfig = { showModalThumbnailList: true };
+
+        // act
+        service.applyGalleryConfig(config);
+
+        // assert
+        expect(service.getLibConfig().showModalThumbnailList).toBeTruthy();
+      });
+
+      it('should set showModalThumbnailList false', () => {
+        const config: GalleryConfig = { showModalThumbnailList: false };
+
+        // act
+        service.applyGalleryConfig(config);
+
+        // assert
+        expect(service.getLibConfig().showModalThumbnailList).toBeFalsy();
       });
     });
   });

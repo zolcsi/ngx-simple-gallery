@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-01-09
+
+### Added
+
+- possibility to open modal view from your html element with directive ```<p [openGallery]="galleryItems">Open my gallery</p>```
+- list of thumbnails in modal view
+- configurable modal view (showThumbnailList, startIndex)
+
 ## [1.1.0] - 2024-11-08
 
 ### Added
@@ -16,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- navigation to previous/next images in the showcase view
+- navigation to previous/next images in the modal view
 
 ## [0.1.0] - 2024-10-30
 

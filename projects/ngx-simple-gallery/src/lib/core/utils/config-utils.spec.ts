@@ -1,4 +1,6 @@
 import { ConfigUtils } from './config-utils';
+import { GalleryConfig } from '../model/gallery-config';
+import { Constants } from '../constants';
 
 describe('ConfigUtils', () => {
   describe('testing normalizeStartIndex()', () => {
@@ -42,6 +44,18 @@ describe('ConfigUtils', () => {
       const numOfItems = 10;
       const result = ConfigUtils.normalizeStartIndex(startIndex, numOfItems);
       expect(result).toBe(0);
+    });
+  });
+
+  describe('testing defaultGalleryConfig()', () => {
+    it('should return a default modal config object', () => {
+      const result = ConfigUtils.defaultLibConfig();
+      expect(result).toEqual({
+        emptyMessage: Constants.defaultEmptyMessage,
+        galleryThumbnailSize: Constants.defaultGalleryThumbnailSize,
+        modalStartIndex: Constants.defaultModalStartIndex,
+        showModalThumbnailList: Constants.defaultShowModalThumbnailList,
+      } as GalleryConfig);
     });
   });
 });
