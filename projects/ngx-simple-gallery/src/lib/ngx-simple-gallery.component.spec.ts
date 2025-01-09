@@ -29,6 +29,7 @@ describe('GalleryComponent', () => {
   let fixture: ComponentFixture<NgxSimpleGalleryComponent>;
   let dialogMock: { open: jest.Mock };
   let galleryServiceMock: {
+    applyModalConfig: jest.Mock;
     galleryItems: WritableSignal<GalleryItem[]>;
     setGalleryItems: jest.Mock;
     setItemIndex: jest.Mock;
@@ -37,6 +38,7 @@ describe('GalleryComponent', () => {
   beforeEach(async () => {
     dialogMock = { open: jest.fn() };
     galleryServiceMock = {
+      applyModalConfig: jest.fn(),
       galleryItems: signal([]),
       setGalleryItems: jest.fn(),
       setItemIndex: jest.fn(),
@@ -72,6 +74,25 @@ describe('GalleryComponent', () => {
     it('should have no thumbnail wrappers, as there are no images', () => {
       const thumbnailWrappers = componentDe.queryAll(thumbnailWrappersCss);
       expect(thumbnailWrappers.length).toEqual(0);
+    });
+
+    it('should display the empty gallery message', () => {
+      const emptyMessageDe = componentDe.query(emptyMessageCss);
+      const emptyMessage = emptyMessageDe.nativeElement;
+      expect(emptyMessage.textContent).toEqual(Constants.defaultEmptyMessage);
+    });
+  });
+
+  describe('testing modalConfig', () => {
+    it('should take over the modalConfig and apply it', () => {
+      // arrange
+      jest.spyOn(galleryServiceMock, 'applyModalConfig');
+
+      // act
+      component.modalConfig = { showModalThumbnailList: true, startIndex: 0 };
+
+      // assert
+      expect(galleryServiceMock.applyModalConfig).toHaveBeenCalledTimes(1);
     });
 
     it('should display the empty gallery message', () => {
