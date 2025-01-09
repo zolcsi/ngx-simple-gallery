@@ -30,6 +30,13 @@ describe('ConfigUtils', () => {
       expect(result).toBe(0);
     });
 
+    it('should return 0 when startIndex is undefined', () => {
+      const startIndex = undefined as unknown as number;
+      const numOfItems = 10;
+      const result = ConfigUtils.normalizeStartIndex(startIndex, numOfItems);
+      expect(result).toBe(0);
+    });
+
     it('should return 0 when startIndex is NaN', () => {
       const startIndex = NaN;
       const numOfItems = 10;

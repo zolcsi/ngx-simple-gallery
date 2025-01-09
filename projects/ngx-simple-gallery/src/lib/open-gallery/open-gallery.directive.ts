@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, inject, Input, input } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Input, input, Renderer2 } from '@angular/core';
 import { ShowcaseDialogComponent } from '../showcase-dialog/showcase-dialog.component';
 import { GalleryService } from '../core/service/gallery.service';
 import { Dialog } from '@angular/cdk/dialog';
@@ -14,6 +14,7 @@ export class OpenGalleryDirective {
   private readonly dialog = inject(Dialog);
   private readonly elementRef = inject(ElementRef);
   private readonly galleryService = inject(GalleryService);
+  private readonly renderer = inject(Renderer2);
 
   public readonly openGallery = input([] as GalleryItem[]);
 
@@ -27,7 +28,14 @@ export class OpenGalleryDirective {
   }
 
   @HostListener('click') onClick(): void {
-    this.galleryService.setGalleryItems(this.openGallery());
-    this.dialog.open(ShowcaseDialogComponent);
+    if (this.openGallery().length > 0) {
+      this.galleryService.setGalleryItems(this.openGallery());
+      this.dialog.open(ShowcaseDialogComponent);
+    } else {
+      this.elementRef.nativeElement.style.backgroundColor = 'red';
+      this.elementRef.nativeElement.style.padding = '0.5rem 1rem 0.5rem 1rem';
+      this.elementRef.nativeElement.style.fontSize = '1.5rem';
+      this.renderer.setProperty(this.elementRef.nativeElement, 'innerHTML', '<p>Gallery is empty. Provide items through [openGallery]="arrayOfGalleryItems"</p>');
+    }
   }
 }

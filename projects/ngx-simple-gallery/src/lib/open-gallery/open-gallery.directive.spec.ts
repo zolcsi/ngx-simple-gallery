@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OpenGalleryDirective } from './open-gallery.directive';
 import { GalleryService } from '../core/service/gallery.service';
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ModalConfig } from '../core/model/modal-config';
 import { GalleryItem } from '../core/model/gallery-item';
@@ -30,8 +30,8 @@ const galleryItems: GalleryItem[] = [
   imports: [OpenGalleryDirective]
 })
 class TestComponent {
-  protected galleryItems = galleryItems;
-  protected modalConfig = modalConfig;
+  galleryItems = galleryItems;
+  modalConfig = modalConfig;
 }
 
 describe('OpenGalleryDirective', () => {
@@ -42,6 +42,7 @@ describe('OpenGalleryDirective', () => {
     applyModalConfig: jest.Mock,
     setGalleryItems: jest.Mock,
   };
+  let rendererMock: Partial<Renderer2>;
 
   beforeEach(async () => {
     dialogMock = {
@@ -50,7 +51,10 @@ describe('OpenGalleryDirective', () => {
     elementRefMock = {
       nativeElement: {
         style: {
-          cursor: undefined
+          backgroundColor: undefined,
+          cursor: undefined,
+          fontSize: undefined,
+          padding: undefined
         }
       }
     };
@@ -58,13 +62,17 @@ describe('OpenGalleryDirective', () => {
       applyModalConfig: jest.fn(),
       setGalleryItems: jest.fn()
     };
+    rendererMock = {
+      setProperty: jest.fn()
+    };
 
     await TestBed.configureTestingModule({
       imports: [OpenGalleryDirective, TestComponent],
       providers: [
         { provide: Dialog, useValue: dialogMock },
         { provide: ElementRef, useValue: elementRefMock },
-        { provide: GalleryService, useValue: galleryServiceMock }
+        { provide: GalleryService, useValue: galleryServiceMock },
+        { provide: Renderer2, useValue: rendererMock }
       ]
     }).compileComponents();
 
@@ -105,5 +113,30 @@ describe('OpenGalleryDirective', () => {
     // assert
     expect(galleryServiceMock.setGalleryItems).toHaveBeenCalledWith(galleryItems);
     expect(dialogMock.open).toHaveBeenCalledWith(ShowcaseDialogComponent);
+  });
+
+  it('should display a message, that the gallery is empty, on click', () => {
+    // arrange
+    jest.spyOn(galleryServiceMock, 'setGalleryItems');
+    jest.spyOn(dialogMock, 'open');
+
+    fixture.componentInstance.galleryItems = [];
+    fixture.detectChanges();
+
+    const debugElement = fixture.debugElement;
+    const h2 = debugElement.query(By.css('h2'));
+
+    // act
+    click(h2);
+
+    // assert
+    expect(galleryServiceMock.setGalleryItems).not.toHaveBeenCalled();
+    expect(dialogMock.open).not.toHaveBeenCalled();
+
+    const openGalleryDirective = debugElement.query(By.directive(OpenGalleryDirective));
+    expect(openGalleryDirective.nativeElement.style.backgroundColor).toEqual('red');
+    expect(openGalleryDirective.nativeElement.style.padding).toEqual('0.5rem 1rem 0.5rem 1rem');
+    expect(openGalleryDirective.nativeElement.style.fontSize).toEqual('1.5rem');
+    expect(openGalleryDirective.nativeElement.innerHTML).toEqual('<p>Gallery is empty. Provide items through [openGallery]="arrayOfGalleryItems"</p>');
   });
 });
