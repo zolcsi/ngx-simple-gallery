@@ -9,6 +9,7 @@ import { GalleryItem } from './core/model/gallery-item';
 import { GalleryService } from './core/service/gallery.service';
 import { ConfigUtils } from './core/utils/config-utils';
 import { GalleryConfig } from './core/model/gallery-config';
+import { ServiceRegistry } from './core/service/service-registry';
 import spyOn = jest.spyOn;
 
 const galleryItemsFixture: GalleryItem[] = [
@@ -37,6 +38,7 @@ describe('GalleryComponent', () => {
     setGalleryItems: jest.Mock;
     setItemIndex: jest.Mock;
   };
+  let galleryServicesMock: { get: jest.Mock; set: jest.Mock };
 
   beforeEach(async () => {
     dialogMock = { open: jest.fn() };
@@ -47,18 +49,17 @@ describe('GalleryComponent', () => {
       setGalleryItems: jest.fn(),
       setItemIndex: jest.fn(),
     };
+    galleryServicesMock = {
+      get: jest.fn().mockReturnValue(galleryServiceMock),
+      set: jest.fn(),
+    };
 
     await TestBed.configureTestingModule({
       imports: [NgxSimpleGalleryComponent],
       providers: [
-        {
-          provide: Dialog,
-          useValue: dialogMock,
-        },
-        {
-          provide: GalleryService,
-          useValue: galleryServiceMock,
-        },
+        { provide: Dialog, useValue: dialogMock },
+        { provide: GalleryService, useValue: galleryServiceMock },
+        { provide: ServiceRegistry.GALLERY_SERVICES, useValue: galleryServicesMock },
       ],
     }).compileComponents();
 
@@ -199,7 +200,12 @@ describe('GalleryComponent', () => {
 
       // assert
       expect(dialogSpyOnOpen).toHaveBeenCalledTimes(1);
-      expect(dialogSpyOnOpen).toHaveBeenCalledWith(ShowcaseDialogComponent);
+      expect(dialogSpyOnOpen).toHaveBeenCalledWith(
+        ShowcaseDialogComponent,
+        expect.objectContaining({
+          data: expect.stringMatching(/.{8}/),
+        }),
+      );
       expect(galleryServiceMock.setItemIndex).toHaveBeenCalledTimes(1);
     });
   });

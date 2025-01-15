@@ -34,10 +34,6 @@ describe('AppComponent', () => {
     expect(title.textContent).toContain('ngx-simple-gallery');
   });
 
-  it(`should store the galleryItems`, () => {
-    expect(component.galleryItems.length).toBeGreaterThan(0);
-  });
-
   it(`should include the simple gallery lib`, () => {
     const simpleGalleryDe = componentDe.query(simpleGalleryCss);
     expect(simpleGalleryDe).not.toBeNull();

@@ -5,16 +5,18 @@ import { DebugElement, signal, WritableSignal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { GalleryItem } from '../core/model/gallery-item';
 import { click } from '../../../testing/test-utilities';
+import { ServiceRegistry } from '../core/service/service-registry';
+import { DIALOG_DATA } from '@angular/cdk/dialog';
 
 const galleryItems: GalleryItem[] = [
   {
     src: 'image-number-one',
-    thumbnail: 'thumbnail number 1'
+    thumbnail: 'thumbnail number 1',
   },
   {
     src: 'image-number-two',
-    thumbnail: 'thumbnail number 2'
-  }
+    thumbnail: 'thumbnail number 2',
+  },
 ];
 
 describe('ThumbnailListComponent', () => {
@@ -25,6 +27,7 @@ describe('ThumbnailListComponent', () => {
     getItemIndex: WritableSignal<number>;
     setItemIndex: jest.Mock;
   };
+  let galleryServicesMock: { get: jest.Mock };
 
   beforeEach(async () => {
     galleryServiceMock = {
@@ -32,27 +35,27 @@ describe('ThumbnailListComponent', () => {
       getItemIndex: signal(0),
       setItemIndex: jest.fn(),
     };
+    galleryServicesMock = {
+      get: jest.fn().mockReturnValue(galleryServiceMock),
+    };
 
     await TestBed.configureTestingModule({
       imports: [ThumbnailListComponent],
       providers: [
-        {
-          provide: GalleryService,
-          useValue: galleryServiceMock,
-        },
+        { provide: GalleryService, useValue: galleryServiceMock },
+        { provide: DIALOG_DATA, useValue: 'TEST_INSTANCE_ID' },
+        { provide: ServiceRegistry.GALLERY_SERVICES, useValue: galleryServicesMock },
       ],
     }).compileComponents();
   });
 
   describe('should not display items, when the list is empty', () => {
-
     beforeEach(() => {
       fixture = TestBed.createComponent(ThumbnailListComponent);
       componentDe = fixture.debugElement;
-    })
+    });
 
     it('thumbnail container exists', () => {
-
       // arrange
       const thumbnailContainer = componentDe.query(By.css('.thumbnail-container'));
 
@@ -61,7 +64,6 @@ describe('ThumbnailListComponent', () => {
     });
 
     it('should check the role of the image', () => {
-
       // arrange
       const images = componentDe.queryAll(By.css('img'));
 
@@ -71,7 +73,6 @@ describe('ThumbnailListComponent', () => {
   });
 
   describe('should display items, the list is filled', () => {
-
     beforeEach(() => {
       galleryServiceMock.galleryItems.set(galleryItems);
 
@@ -81,10 +82,9 @@ describe('ThumbnailListComponent', () => {
 
       fixture.detectChanges();
       componentDe = fixture.debugElement;
-    })
+    });
 
     it('thumbnail container exists', () => {
-
       // arrange
       const thumbnailContainer = componentDe.query(By.css('.thumbnail-container'));
 
@@ -93,16 +93,14 @@ describe('ThumbnailListComponent', () => {
     });
 
     it('check css transform', () => {
-
       // arrange
       const thumbnailDiv = componentDe.query(By.css('.thumbnails'));
 
       // assert
-      expect(thumbnailDiv.nativeElement.style.transform).toEqual('translateX(NaNpx)')
+      expect(thumbnailDiv.nativeElement.style.transform).toEqual('translateX(NaNpx)');
     });
 
     it('should check the role of the image', () => {
-
       // arrange
       const images = componentDe.queryAll(By.css('img'));
 
@@ -116,7 +114,6 @@ describe('ThumbnailListComponent', () => {
     });
 
     it('should select the second item on click', () => {
-
       // arrange
       const images = componentDe.queryAll(By.css('img'));
 
@@ -130,7 +127,6 @@ describe('ThumbnailListComponent', () => {
   });
 
   describe('should display items, but not all images loaded yet', () => {
-
     beforeEach(() => {
       galleryServiceMock.galleryItems.set(galleryItems);
 
@@ -139,16 +135,14 @@ describe('ThumbnailListComponent', () => {
 
       fixture.detectChanges();
       componentDe = fixture.debugElement;
-    })
+    });
 
     it('check css transform', () => {
-
       // arrange
       const thumbnailDiv = componentDe.query(By.css('.thumbnails'));
 
       // assert
-      expect(thumbnailDiv.nativeElement.style.transform).toEqual('translateX(0)')
+      expect(thumbnailDiv.nativeElement.style.transform).toEqual('translateX(0)');
     });
   });
-
 });

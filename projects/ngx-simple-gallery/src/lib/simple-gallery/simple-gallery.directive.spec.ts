@@ -9,27 +9,30 @@ import { GalleryItem } from '../core/model/gallery-item';
 import { click } from '../../../testing/test-utilities';
 import { ShowcaseDialogComponent } from '../showcase-dialog/showcase-dialog.component';
 import { ConfigUtils } from '../core/utils/config-utils';
+import { ServiceRegistry } from '../core/service/service-registry';
 
 const galleryConfig: GalleryConfig = {
   emptyMessage: 'Gallery is empty',
   showModalThumbnailList: true,
-  modalStartIndex: 1
+  modalStartIndex: 1,
 };
 const galleryItems: GalleryItem[] = [
   {
     src: 'https : // image number 1',
-    thumbnail: 'https : // thumbnail number 1'
+    thumbnail: 'https : // thumbnail number 1',
   },
   {
     src: 'https : // image number 2',
-    thumbnail: 'https : // thumbnail number 2'
-  }
+    thumbnail: 'https : // thumbnail number 2',
+  },
 ];
 
 @Component({
   standalone: true,
-  template: ` <h2 simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">Click here to open gallery</h2>`,
-  imports: [SimpleGalleryDirective]
+  template: ` <h2 simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">
+    Click here to open gallery
+  </h2>`,
+  imports: [SimpleGalleryDirective],
 })
 class TestComponent {
   galleryItems = galleryItems;
@@ -41,15 +44,16 @@ describe('SimpleGalleryDirective', () => {
   let elementRefMock: Partial<ElementRef>;
   let dialogMock: Partial<Dialog>;
   let galleryServiceMock: {
-    applyGalleryConfig: jest.Mock,
-    getLibConfig: WritableSignal<GalleryConfig>,
-    setGalleryItems: jest.Mock,
+    applyGalleryConfig: jest.Mock;
+    getLibConfig: WritableSignal<GalleryConfig>;
+    setGalleryItems: jest.Mock;
   };
+  let galleryServicesMock: { get: jest.Mock; set: jest.Mock };
   let rendererMock: Partial<Renderer2>;
 
   beforeEach(async () => {
     dialogMock = {
-      open: jest.fn()
+      open: jest.fn(),
     };
     elementRefMock = {
       nativeElement: {
@@ -57,17 +61,21 @@ describe('SimpleGalleryDirective', () => {
           backgroundColor: undefined,
           cursor: undefined,
           fontSize: undefined,
-          padding: undefined
-        }
-      }
+          padding: undefined,
+        },
+      },
     };
     galleryServiceMock = {
       applyGalleryConfig: jest.fn(),
       getLibConfig: signal({ ...ConfigUtils.defaultLibConfig() }),
-      setGalleryItems: jest.fn()
+      setGalleryItems: jest.fn(),
+    };
+    galleryServicesMock = {
+      get: jest.fn().mockReturnValue(galleryServiceMock),
+      set: jest.fn(),
     };
     rendererMock = {
-      setProperty: jest.fn()
+      setProperty: jest.fn(),
     };
 
     await TestBed.configureTestingModule({
@@ -76,8 +84,9 @@ describe('SimpleGalleryDirective', () => {
         { provide: Dialog, useValue: dialogMock },
         { provide: ElementRef, useValue: elementRefMock },
         { provide: GalleryService, useValue: galleryServiceMock },
-        { provide: Renderer2, useValue: rendererMock }
-      ]
+        { provide: Renderer2, useValue: rendererMock },
+        { provide: ServiceRegistry.GALLERY_SERVICES, useValue: galleryServicesMock },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
@@ -95,7 +104,6 @@ describe('SimpleGalleryDirective', () => {
   });
 
   it('should set the modal config on initiation', () => {
-
     // arrange
     jest.spyOn(galleryServiceMock, 'applyGalleryConfig');
 
@@ -104,7 +112,6 @@ describe('SimpleGalleryDirective', () => {
   });
 
   it('should set the gallery items and open the modal dialog on click', () => {
-
     // arrange
     jest.spyOn(galleryServiceMock, 'setGalleryItems');
     jest.spyOn(dialogMock, 'open');
@@ -116,7 +123,12 @@ describe('SimpleGalleryDirective', () => {
 
     // assert
     expect(galleryServiceMock.setGalleryItems).toHaveBeenCalledWith(galleryItems);
-    expect(dialogMock.open).toHaveBeenCalledWith(ShowcaseDialogComponent);
+    expect(dialogMock.open).toHaveBeenCalledWith(
+      ShowcaseDialogComponent,
+      expect.objectContaining({
+        data: expect.stringMatching(/.{8}/),
+      }),
+    );
   });
 
   it('should display a message, when the gallery is empty, on click', () => {

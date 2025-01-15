@@ -1,8 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, Signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  signal,
+  Signal,
+  viewChild,
+} from '@angular/core';
 import { GalleryItem } from '../core/model/gallery-item';
 import { NgClass } from '@angular/common';
 import { TransformationUtils } from '../core/utils/transformation-utils';
-import { GALLERY_SERVICES } from '../core/service/gallery-service-registry';
+import { ServiceRegistry } from '../core/service/service-registry';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 
 @Component({
@@ -15,7 +24,7 @@ import { DIALOG_DATA } from '@angular/cdk/dialog';
 })
 export class ThumbnailListComponent {
   private readonly allImagesLoaded: Signal<boolean>;
-  private readonly galleryService = inject(GALLERY_SERVICES).get(inject<string>(DIALOG_DATA))!;
+  private readonly galleryService = inject(ServiceRegistry.GALLERY_SERVICES).get(inject<string>(DIALOG_DATA))!;
   private readonly numOfItemsLoaded = signal(0);
   private readonly thumbnails = viewChild<ElementRef>('thumbnails');
 

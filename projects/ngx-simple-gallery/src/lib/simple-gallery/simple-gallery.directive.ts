@@ -4,19 +4,19 @@ import { GalleryService } from '../core/service/gallery.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { GalleryConfig } from '../core/model/gallery-config';
 import { GalleryItem } from '../core/model/gallery-item';
-import { GALLERY_SERVICES } from '../core/service/gallery-service-registry';
+import { ServiceRegistry } from '../core/service/service-registry';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[simpleGallery]',
   standalone: true,
-  providers: [GalleryService]
+  providers: [GalleryService],
 })
 export class SimpleGalleryDirective {
   private readonly dialog = inject(Dialog);
   private readonly elementRef = inject(ElementRef);
   private readonly galleryService: GalleryService;
-  private readonly galleryServices = inject(GALLERY_SERVICES);
+  private readonly galleryServices = inject(ServiceRegistry.GALLERY_SERVICES);
   private readonly renderer = inject(Renderer2);
   private readonly instanceId: string;
 

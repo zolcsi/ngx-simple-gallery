@@ -3,7 +3,7 @@ import { GalleryItem } from './core/model/gallery-item';
 import { Dialog } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
 import { GalleryConfig } from './core/model/gallery-config';
-import { GALLERY_SERVICES } from './core/service/gallery-service-registry';
+import { ServiceRegistry } from './core/service/service-registry';
 import { GalleryService } from './core/service/gallery.service';
 
 @Component({
@@ -13,12 +13,12 @@ import { GalleryService } from './core/service/gallery.service';
   templateUrl: './ngx-simple-gallery.component.html',
   styleUrl: './ngx-simple-gallery.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [GalleryService]
+  providers: [GalleryService],
 })
 export class NgxSimpleGalleryComponent {
   private readonly dialog = inject(Dialog);
   private readonly galleryService: GalleryService;
-  private readonly galleryServices = inject(GALLERY_SERVICES);
+  private readonly galleryServices = inject(ServiceRegistry.GALLERY_SERVICES);
   private readonly instanceId: string;
 
   protected readonly emptyMessage: Signal<string | undefined>;

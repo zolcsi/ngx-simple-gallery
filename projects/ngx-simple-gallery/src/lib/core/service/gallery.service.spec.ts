@@ -18,7 +18,9 @@ describe('GalleryService', () => {
   let service: GalleryService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [GalleryService],
+    });
     service = TestBed.inject(GalleryService);
   });
 
@@ -79,7 +81,6 @@ describe('GalleryService', () => {
   });
 
   describe('testing applyGalleryConfig()', () => {
-
     beforeEach(() => {
       service.setGalleryItems(galleryItemsFixture);
     });
@@ -101,13 +102,13 @@ describe('GalleryService', () => {
       });
 
       it('should not set emptyMessage when it is not provided', () => {
-        const config: GalleryConfig = { };
+        const config: GalleryConfig = {};
 
         // act
         service.applyGalleryConfig(config);
 
         // assert
-        expect(service.getLibConfig().emptyMessage).toEqual(Constants.defaultEmptyMessage)
+        expect(service.getLibConfig().emptyMessage).toEqual(Constants.defaultEmptyMessage);
       });
     });
 
@@ -128,13 +129,13 @@ describe('GalleryService', () => {
       });
 
       it('should not set galleryThumbnailSize when it is not provided', () => {
-        const config: GalleryConfig = { };
+        const config: GalleryConfig = {};
 
         // act
         service.applyGalleryConfig(config);
 
         // assert
-        expect(service.getLibConfig().galleryThumbnailSize).toEqual(Constants.defaultGalleryThumbnailSize)
+        expect(service.getLibConfig().galleryThumbnailSize).toEqual(Constants.defaultGalleryThumbnailSize);
       });
     });
 

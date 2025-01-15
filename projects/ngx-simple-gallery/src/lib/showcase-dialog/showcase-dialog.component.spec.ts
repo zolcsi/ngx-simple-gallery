@@ -1,23 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DialogRef } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog.component';
 import { DebugElement, signal, WritableSignal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { GalleryService } from '../core/service/gallery.service';
-import spyOn = jest.spyOn;
 import { GalleryItem } from '../core/model/gallery-item';
 import { GalleryConfig } from '../core/model/gallery-config';
 import { ConfigUtils } from '../core/utils/config-utils';
+import { ServiceRegistry } from '../core/service/service-registry';
+import spyOn = jest.spyOn;
 
 const galleryItems: GalleryItem[] = [
   {
     src: 'image-number-one',
-    thumbnail: 'thumbnail number 1'
+    thumbnail: 'thumbnail number 1',
   },
   {
     src: 'image-number-two',
-    thumbnail: 'thumbnail number 2'
-  }
+    thumbnail: 'thumbnail number 2',
+  },
 ];
 
 describe('ImageDialogComponent', () => {
@@ -34,6 +35,7 @@ describe('ImageDialogComponent', () => {
     loadPrev: jest.Mock;
     stopLoading: jest.Mock;
   };
+  let galleryServicesMock: { get: jest.Mock };
 
   beforeEach(async () => {
     dialogRefMock = { close: jest.fn() };
@@ -46,17 +48,17 @@ describe('ImageDialogComponent', () => {
       loadPrev: jest.fn(),
       stopLoading: jest.fn(),
     };
+    galleryServicesMock = {
+      get: jest.fn().mockReturnValue(galleryServiceMock),
+    };
+
     await TestBed.configureTestingModule({
       imports: [ShowcaseDialogComponent],
       providers: [
-        {
-          provide: DialogRef,
-          useValue: dialogRefMock,
-        },
-        {
-          provide: GalleryService,
-          useValue: galleryServiceMock,
-        },
+        { provide: DialogRef, useValue: dialogRefMock },
+        { provide: GalleryService, useValue: galleryServiceMock },
+        { provide: DIALOG_DATA, useValue: 'TEST_INSTANCE_ID' },
+        { provide: ServiceRegistry.GALLERY_SERVICES, useValue: galleryServicesMock },
       ],
     }).compileComponents();
 

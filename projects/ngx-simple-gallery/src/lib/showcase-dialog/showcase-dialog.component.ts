@@ -3,7 +3,7 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ThumbnailListComponent } from '../thumbnail-list/thumbnail-list.component';
-import { GALLERY_SERVICES } from '../core/service/gallery-service-registry';
+import { ServiceRegistry } from '../core/service/service-registry';
 
 @Component({
   standalone: true,
@@ -17,7 +17,7 @@ export class ShowcaseDialogComponent {
   protected readonly isLoading: Signal<boolean>;
   protected readonly showThumbnailList: Signal<boolean>;
   private readonly dialogRef = inject(DialogRef);
-  private readonly galleryService = inject(GALLERY_SERVICES).get(inject<string>(DIALOG_DATA))!;
+  private readonly galleryService = inject(ServiceRegistry.GALLERY_SERVICES).get(inject<string>(DIALOG_DATA))!;
 
   public constructor() {
     this.imageSource = this.galleryService.imageSource;
