@@ -2,21 +2,23 @@ import { ChangeDetectionStrategy, Component, computed, inject, Input, Signal } f
 import { GalleryItem } from './core/model/gallery-item';
 import { Dialog } from '@angular/cdk/dialog';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
-import { GalleryService } from './core/service/gallery.service';
 import { GalleryConfig } from './core/model/gallery-config';
+import { GALLERY_SERVICES } from './core/service/gallery-service-registry';
+import { GalleryService } from './core/service/gallery.service';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ngx-simple-gallery',
   standalone: true,
-  imports: [],
   templateUrl: './ngx-simple-gallery.component.html',
   styleUrl: './ngx-simple-gallery.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxSimpleGalleryComponent {
   private readonly dialog = inject(Dialog);
-  private readonly galleryService = inject(GalleryService);
+  private readonly galleryService: GalleryService;
+  private readonly galleryServices = inject(GALLERY_SERVICES);
+  private readonly instanceId: string;
 
   protected readonly emptyMessage: Signal<string | undefined>;
   protected readonly items: Signal<GalleryItem[]>;
@@ -33,13 +35,19 @@ export class NgxSimpleGalleryComponent {
   }
 
   public constructor() {
+    this.instanceId = Math.random().toString(36).substring(2, 10);
+    this.galleryServices.set(this.instanceId, new GalleryService());
+    this.galleryService = this.galleryServices.get(this.instanceId)!;
+
     this.items = this.galleryService.galleryItems;
     this.emptyMessage = computed(() => this.galleryService.getLibConfig().emptyMessage);
     this.thumbnailSize = computed(() => this.galleryService.getLibConfig().galleryThumbnailSize);
   }
 
-  openDialog(index: number): void {
+  public openDialog(index: number): void {
     this.galleryService.setItemIndex(index);
-    this.dialog.open(ShowcaseDialogComponent);
+    this.dialog.open(ShowcaseDialogComponent, {
+      data: this.instanceId,
+    });
   }
 }

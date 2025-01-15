@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, HostListener, inject, Signal } from '@angular/core';
-import { DialogRef } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { GalleryService } from '../core/service/gallery.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ThumbnailListComponent } from '../thumbnail-list/thumbnail-list.component';
+import { GALLERY_SERVICES } from '../core/service/gallery-service-registry';
 
 @Component({
   standalone: true,
@@ -17,9 +17,9 @@ export class ShowcaseDialogComponent {
   protected readonly isLoading: Signal<boolean>;
   protected readonly showThumbnailList: Signal<boolean>;
   private readonly dialogRef = inject(DialogRef);
-  private readonly galleryService = inject(GalleryService);
+  private readonly galleryService = inject(GALLERY_SERVICES).get(inject<string>(DIALOG_DATA))!;
 
-  constructor() {
+  public constructor() {
     this.imageSource = this.galleryService.imageSource;
     this.isLoading = this.galleryService.getIsLoading;
     this.showThumbnailList = computed(() => this.galleryService.getLibConfig().showModalThumbnailList);
@@ -35,19 +35,19 @@ export class ShowcaseDialogComponent {
     this.galleryService.loadNext();
   }
 
-  closeDialog(): void {
+  public closeDialog(): void {
     this.dialogRef.close();
   }
 
-  loadPrevious(): void {
+  public loadPrevious(): void {
     this.galleryService.loadPrev();
   }
 
-  loadNext(): void {
+  public loadNext(): void {
     this.galleryService.loadNext();
   }
 
-  imageLoaded(): void {
+  public imageLoaded(): void {
     this.galleryService.stopLoading();
   }
 }

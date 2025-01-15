@@ -1,9 +1,13 @@
 <h1>ngx-simple-gallery</h1>
 <div class="gallery">
-  <ngx-simple-gallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
+  <ngx-simple-gallery [galleryItems]="galleryItemsForComponent1" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
+</div>
+
+<div class="gallery">
+  <ngx-simple-gallery [galleryItems]="galleryItemsForComponent2" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
 </div>
 
 <hr/>
 
 <h1>using Directive</h1>
-<p simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">My Gallery</p>
+<p simpleGallery [galleryItems]="galleryItemsForDirective" [galleryConfig]="galleryConfig">My Gallery</p>

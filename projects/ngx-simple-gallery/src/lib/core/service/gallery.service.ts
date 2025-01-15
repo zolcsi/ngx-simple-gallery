@@ -1,13 +1,10 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, signal } from '@angular/core';
 import { GalleryItem } from '../model/gallery-item';
 import { Constants } from '../constants';
 import { GalleryConfig } from '../model/gallery-config';
 import { ConfigUtils } from '../utils/config-utils';
 import { LibConfig } from '../model/lib-config';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class GalleryService {
   private readonly libConfig = signal<LibConfig>(ConfigUtils.defaultLibConfig());
   private readonly isLoading = signal<boolean>(false);
@@ -31,7 +28,8 @@ export class GalleryService {
 
   public applyGalleryConfig(galleryConfig: GalleryConfig): void {
     this.libConfig.set({
-      emptyMessage: galleryConfig.emptyMessage !== undefined ? galleryConfig.emptyMessage : Constants.defaultEmptyMessage,
+      emptyMessage:
+        galleryConfig.emptyMessage !== undefined ? galleryConfig.emptyMessage : Constants.defaultEmptyMessage,
       galleryThumbnailSize:
         galleryConfig.galleryThumbnailSize !== undefined
           ? galleryConfig.galleryThumbnailSize

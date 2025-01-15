@@ -16,7 +16,7 @@ export class AppComponent {
     modalStartIndex: 2,
   };
 
-  public galleryItems: GalleryItem[] = [
+  public galleryItemsForComponent1: GalleryItem[] = [
     {
       src: 'https://picsum.photos/id/237/1200/1800',
       thumbnail: 'https://picsum.photos/id/237/160/160',
@@ -25,6 +25,9 @@ export class AppComponent {
       src: 'https://picsum.photos/id/238/1200/1800',
       thumbnail: 'https://picsum.photos/id/238/160/160',
     },
+  ];
+
+  public galleryItemsForComponent2: GalleryItem[] = [
     {
       src: 'https://picsum.photos/id/155/800/1200',
       thumbnail: 'https://picsum.photos/id/155/160/160',
@@ -41,6 +44,9 @@ export class AppComponent {
       src: 'https://picsum.photos/id/111/800/1200',
       thumbnail: 'https://picsum.photos/id/111/160/160',
     },
+  ];
+
+  public galleryItemsForDirective: GalleryItem[] = [
     { src: 'img/image1.jpg' },
     { src: 'img/image2.jpg' },
     { src: 'img/image3.jpg' },
