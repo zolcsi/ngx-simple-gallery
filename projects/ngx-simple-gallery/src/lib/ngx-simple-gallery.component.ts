@@ -13,6 +13,7 @@ import { GalleryService } from './core/service/gallery.service';
   templateUrl: './ngx-simple-gallery.component.html',
   styleUrl: './ngx-simple-gallery.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [GalleryService]
 })
 export class NgxSimpleGalleryComponent {
   private readonly dialog = inject(Dialog);
@@ -36,7 +37,7 @@ export class NgxSimpleGalleryComponent {
 
   public constructor() {
     this.instanceId = Math.random().toString(36).substring(2, 10);
-    this.galleryServices.set(this.instanceId, new GalleryService());
+    this.galleryServices.set(this.instanceId, inject(GalleryService));
     this.galleryService = this.galleryServices.get(this.instanceId)!;
 
     this.items = this.galleryService.galleryItems;

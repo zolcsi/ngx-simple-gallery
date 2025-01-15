@@ -10,6 +10,7 @@ import { GALLERY_SERVICES } from '../core/service/gallery-service-registry';
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[simpleGallery]',
   standalone: true,
+  providers: [GalleryService]
 })
 export class SimpleGalleryDirective {
   private readonly dialog = inject(Dialog);
@@ -23,7 +24,7 @@ export class SimpleGalleryDirective {
 
   public constructor() {
     this.instanceId = Math.random().toString(36).substring(2, 10);
-    this.galleryServices.set(this.instanceId, new GalleryService());
+    this.galleryServices.set(this.instanceId, inject(GalleryService));
     this.galleryService = this.galleryServices.get(this.instanceId)!;
 
     this.elementRef.nativeElement.style.cursor = 'pointer';

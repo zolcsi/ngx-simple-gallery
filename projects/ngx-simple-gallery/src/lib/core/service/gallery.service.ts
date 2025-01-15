@@ -1,10 +1,11 @@
-import { computed, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { GalleryItem } from '../model/gallery-item';
 import { Constants } from '../constants';
 import { GalleryConfig } from '../model/gallery-config';
 import { ConfigUtils } from '../utils/config-utils';
 import { LibConfig } from '../model/lib-config';
 
+@Injectable()
 export class GalleryService {
   private readonly libConfig = signal<LibConfig>(ConfigUtils.defaultLibConfig());
   private readonly isLoading = signal<boolean>(false);
@@ -22,8 +23,10 @@ export class GalleryService {
   }
 
   public setItemIndex(index: number): void {
-    this.isLoading.set(true);
-    this.itemNdx.set(ConfigUtils.normalizeStartIndex(index, this.galleryItems().length));
+    if (this.getItemIndex() !== index) {
+      this.isLoading.set(true);
+      this.itemNdx.set(ConfigUtils.normalizeStartIndex(index, this.galleryItems().length));
+    }
   }
 
   public applyGalleryConfig(galleryConfig: GalleryConfig): void {
