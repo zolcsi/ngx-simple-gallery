@@ -6,4 +6,8 @@ export class ServiceRegistry {
     providedIn: 'root',
     factory: (): Map<string, GalleryService> => new Map<string, GalleryService>(),
   });
+
+  static randomInstanceId(): string {
+    return Math.random().toString(36).substring(2, 10);
+  }
 }

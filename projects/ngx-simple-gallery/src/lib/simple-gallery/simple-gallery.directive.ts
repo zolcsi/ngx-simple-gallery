@@ -23,7 +23,7 @@ export class SimpleGalleryDirective {
   public readonly simpleGallery = input([] as GalleryItem[], { alias: 'galleryItems' });
 
   public constructor() {
-    this.instanceId = Math.random().toString(36).substring(2, 10);
+    this.instanceId = ServiceRegistry.randomInstanceId();
     this.galleryServices.set(this.instanceId, inject(GalleryService));
     this.galleryService = this.galleryServices.get(this.instanceId)!;
 
