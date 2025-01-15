@@ -53,12 +53,21 @@ export class AppComponent {
     { src: 'img/image4.jpg' },
     { src: 'img/image5.jpg' },
     { src: 'img/image6.jpg' },
-    { src: 'img/image7.jpg' },
-    { src: 'img/image8.jpg' },
-    { src: 'img/image9.jpg' },
-    { src: 'img/image10.jpg' },
-    { src: 'img/image11.jpg' },
-    { src: 'img/image12.jpg' },
-    { src: 'img/image13.jpg' },
+    {
+      src: 'https://picsum.photos/id/110/800/1200',
+      thumbnail: 'https://picsum.photos/id/110/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/118/1200/1800',
+      thumbnail: 'https://picsum.photos/id/118/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/121/800/1200',
+      thumbnail: 'https://picsum.photos/id/121/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/122/800/1200',
+      thumbnail: 'https://picsum.photos/id/122/160/160',
+    },
   ];
 }
