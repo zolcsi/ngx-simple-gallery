@@ -4,7 +4,7 @@
       <img class="thumbnail-item"
            role="presentation"
            [ngClass]="{'selected': selectedItemIndex() === i}"
-           [src]="item.src"
+           [src]="item.thumbnail ?? item.src"
            [alt]="'Gallery image ' + i"
            (click)="selectItem(i)"
            (load)="itemLoaded()" />
