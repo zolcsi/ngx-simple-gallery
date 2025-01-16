@@ -10,7 +10,6 @@ import { click } from '../../../testing/test-utilities';
 import { ShowcaseDialogComponent } from '../showcase-dialog/showcase-dialog.component';
 import { ConfigUtils } from '../core/utils/config-utils';
 import { ServiceRegistry } from '../core/service/service-registry';
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 const galleryConfig: GalleryConfig = {
   emptyMessage: 'Gallery is empty',
@@ -127,7 +126,7 @@ describe('SimpleGalleryDirective', () => {
     expect(dialogMock.open).toHaveBeenCalledWith(
       ShowcaseDialogComponent,
       expect.objectContaining({
-        data: expect.stringMatching(/.{8}/)
+        data: expect.stringMatching(/.{8}/),
       }),
     );
   });

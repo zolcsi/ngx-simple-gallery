@@ -11,7 +11,6 @@ import { ConfigUtils } from './core/utils/config-utils';
 import { GalleryConfig } from './core/model/gallery-config';
 import { ServiceRegistry } from './core/service/service-registry';
 import spyOn = jest.spyOn;
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 const galleryItemsFixture: GalleryItem[] = [
   {
@@ -204,7 +203,7 @@ describe('GalleryComponent', () => {
       expect(dialogSpyOnOpen).toHaveBeenCalledWith(
         ShowcaseDialogComponent,
         expect.objectContaining({
-          data: expect.stringMatching(/.{8}/)
+          data: expect.stringMatching(/.{8}/),
         }),
       );
       expect(galleryServiceMock.setItemIndex).toHaveBeenCalledTimes(1);

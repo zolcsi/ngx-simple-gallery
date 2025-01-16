@@ -5,7 +5,6 @@ import { Dialog } from '@angular/cdk/dialog';
 import { GalleryConfig } from '../core/model/gallery-config';
 import { GalleryItem } from '../core/model/gallery-item';
 import { ServiceRegistry } from '../core/service/service-registry';
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -41,7 +40,7 @@ export class SimpleGalleryDirective {
     if (this.simpleGallery().length > 0) {
       this.galleryService.setGalleryItems(this.simpleGallery());
       this.dialog.open(ShowcaseDialogComponent, {
-        data: this.instanceId
+        data: this.instanceId,
       });
     } else {
       this.elementRef.nativeElement.style.backgroundColor = 'red';
