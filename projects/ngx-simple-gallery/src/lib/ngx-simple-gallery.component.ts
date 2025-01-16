@@ -5,6 +5,7 @@ import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.compo
 import { GalleryConfig } from './core/model/gallery-config';
 import { ServiceRegistry } from './core/service/service-registry';
 import { GalleryService } from './core/service/gallery.service';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -49,6 +50,7 @@ export class NgxSimpleGalleryComponent {
     this.galleryService.setItemIndex(index);
     this.dialog.open(ShowcaseDialogComponent, {
       data: this.instanceId,
+      scrollStrategy: new NoopScrollStrategy()
     });
   }
 }

@@ -75,8 +75,7 @@
   bottom: 0;
   left: 1rem;
   margin: auto;
-  height: 1.5rem;
-  display: flex;
+  display: inline-table;
   padding: 1rem;
   background-color: rgb(11, 11, 11, 0.2);
   border-radius: 0.25rem;
@@ -94,8 +93,7 @@
   bottom: 0;
   right: 1rem;
   margin: auto;
-  height: 1.5rem;
-  display: flex;
+  display: inline-table;
   padding: 1rem;
   background-color: rgb(11, 11, 11, 0.2);
   border-radius: 0.25rem;
