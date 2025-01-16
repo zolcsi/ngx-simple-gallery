@@ -204,8 +204,7 @@ describe('GalleryComponent', () => {
       expect(dialogSpyOnOpen).toHaveBeenCalledWith(
         ShowcaseDialogComponent,
         expect.objectContaining({
-          data: expect.stringMatching(/.{8}/),
-          scrollStrategy: new NoopScrollStrategy(),
+          data: expect.stringMatching(/.{8}/)
         }),
       );
       expect(galleryServiceMock.setItemIndex).toHaveBeenCalledTimes(1);

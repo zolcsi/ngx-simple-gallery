@@ -127,8 +127,7 @@ describe('SimpleGalleryDirective', () => {
     expect(dialogMock.open).toHaveBeenCalledWith(
       ShowcaseDialogComponent,
       expect.objectContaining({
-        data: expect.stringMatching(/.{8}/),
-        scrollStrategy: new NoopScrollStrategy(),
+        data: expect.stringMatching(/.{8}/)
       }),
     );
   });

@@ -41,8 +41,7 @@ export class SimpleGalleryDirective {
     if (this.simpleGallery().length > 0) {
       this.galleryService.setGalleryItems(this.simpleGallery());
       this.dialog.open(ShowcaseDialogComponent, {
-        data: this.instanceId,
-        scrollStrategy: new NoopScrollStrategy()
+        data: this.instanceId
       });
     } else {
       this.elementRef.nativeElement.style.backgroundColor = 'red';
