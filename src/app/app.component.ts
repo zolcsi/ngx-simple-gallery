@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { GalleryItem, GalleryConfig, NgxSimpleGalleryComponent, SimpleGalleryDirective } from 'ngx-simple-gallery';
+import { GalleryConfig, GalleryItem, NgxSimpleGalleryComponent, SimpleGalleryDirective } from 'ngx-simple-gallery';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [NgxSimpleGalleryComponent, SimpleGalleryDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

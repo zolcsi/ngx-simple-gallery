@@ -20,6 +20,7 @@ export class SimpleGalleryDirective {
   private readonly renderer = inject(Renderer2);
   private readonly instanceId: string;
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   public readonly simpleGallery = input([] as GalleryItem[], { alias: 'galleryItems' });
 
   public constructor() {
