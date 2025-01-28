@@ -16,7 +16,6 @@ import { DIALOG_DATA } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'lib-thumbnail-list',
-  standalone: true,
   imports: [NgClass],
   templateUrl: './thumbnail-list.component.html',
   styleUrl: './thumbnail-list.component.css',

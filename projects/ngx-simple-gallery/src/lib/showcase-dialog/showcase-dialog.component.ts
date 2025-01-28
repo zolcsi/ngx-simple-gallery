@@ -6,7 +6,6 @@ import { ThumbnailListComponent } from '../thumbnail-list/thumbnail-list.compone
 import { ServiceRegistry } from '../core/service/service-registry';
 
 @Component({
-  standalone: true,
   imports: [NgTemplateOutlet, NgClass, SpinnerComponent, ThumbnailListComponent],
   templateUrl: './showcase-dialog.component.html',
   styleUrl: './showcase-dialog.component.css',
