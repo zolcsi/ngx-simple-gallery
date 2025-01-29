@@ -8,7 +8,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "buildGithubPages": "ng build --base-href https://zolcsi.github.io/ngx-simple-gallery/",
+    "buildGithubPages": "ng build --base-href /ngx-simple-gallery/",
     "deployToGithubPages": "npx angular-cli-ghpages --dir=dist/simple-gallery/browser",
     "test": "jest",
     "test:coverage": "jest --coverage",
