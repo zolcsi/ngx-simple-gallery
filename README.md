@@ -18,10 +18,11 @@ A simple gallery lib for Angular [19]. It displays all the images as thumbnails 
 
 ## Versioning
 
-| Gallery | Angular | Readme                                                                             |
-|---------|---------|------------------------------------------------------------------------------------|
-| `^19`   | `19+`   | here                                                                               |
-| `^18`   | `18`    | [**Readme.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/1.2.4/README.md) |
+| Gallery | Angular | Readme                                                                                   |
+|---------|---------|------------------------------------------------------------------------------------------|
+| `^20`   | `20+`   | here                                                                                     |
+| `^19`   | `19+`   | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/19.0.1/README.md) |
+| `^18`   | `18`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/1.2.4/README.md)       |
 
 
 ## Installation
