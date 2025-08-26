@@ -21,8 +21,8 @@ export class AppComponent {
       thumbnail: 'https://picsum.photos/id/237/160/160',
     },
     {
-      src: 'https://picsum.photos/id/238/1200/1800',
-      thumbnail: 'https://picsum.photos/id/238/160/160',
+      src: 'https://picsum.photos/id/124/1200/1800',
+      thumbnail: 'https://picsum.photos/id/124/160/160',
     },
   ];
 
