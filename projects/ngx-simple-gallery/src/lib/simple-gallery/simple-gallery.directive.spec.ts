@@ -151,7 +151,7 @@ describe('SimpleGalleryDirective', () => {
 
     const simpleGalleryDirective = debugElement.query(By.directive(SimpleGalleryDirective));
     expect(simpleGalleryDirective.nativeElement.style.backgroundColor).toEqual('red');
-    expect(simpleGalleryDirective.nativeElement.style.padding).toEqual('0.5rem 1rem 0.5rem 1rem');
+    expect(simpleGalleryDirective.nativeElement.style.padding).toEqual('0.5rem 1rem');
     expect(simpleGalleryDirective.nativeElement.style.fontSize).toEqual('1.5rem');
     expect(simpleGalleryDirective.nativeElement.innerHTML).toEqual('<p>Empty gallery, no images provided.</p>');
   });
