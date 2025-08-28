@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/ngx-simple-gallery.svg)](https://badge.fury.io/js/ngx-simple-gallery)
 [![codecov](https://codecov.io/gh/zolcsi/ngx-simple-gallery/graph/badge.svg?token=772F41V3M1)](https://codecov.io/gh/zolcsi/ngx-simple-gallery)
 
-A simple gallery lib for Angular [19]. It displays all the images as thumbnails and makes it big, when clicked/tapped on it.
+A simple gallery lib for Angular [20]. It displays all the images as thumbnails and makes it big, when clicked/tapped on it.
  - mobile friendly
  - lightweight
  - use images from any source
