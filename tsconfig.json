@@ -12,9 +12,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "paths": {
-      "ngx-simple-gallery": [
-        "./dist/ngx-simple-gallery"
-      ]
+      "ngx-simple-gallery": ["./dist/ngx-simple-gallery"]
     },
     "esModuleInterop": true,
     "sourceMap": true,
@@ -23,11 +21,7 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022",
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "module": "ES2022"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

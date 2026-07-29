@@ -1,13 +1,30 @@
-<h1>ngx-simple-gallery</h1>
-<div class="gallery">
-  <ngx-simple-gallery [galleryItems]="galleryItemsForComponent1" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
-</div>
+<header class="page-header">
+  <h1 class="page-title">ngx-simple-gallery</h1>
+  <span class="version-badge">v{{ version }}</span>
+  <p class="page-subtitle">A simple, lightweight and mobile friendly gallery for Angular.</p>
+</header>
 
-<div class="gallery">
-  <ngx-simple-gallery [galleryItems]="galleryItemsForComponent2" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
-</div>
+<main class="page-content">
+  <section class="demo-section">
+    <h2 class="section-title">Using as a Component</h2>
+    <p class="section-hint">Renders the thumbnails directly on the page. Click any image to open the gallery.</p>
+    <div class="gallery-list">
+      <div class="gallery-card">
+        <h3 class="gallery-card-title">Gallery 1</h3>
+        <ngx-simple-gallery [galleryItems]="galleryItemsForComponent1" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
+      </div>
+      <div class="gallery-card">
+        <h3 class="gallery-card-title">Gallery 2</h3>
+        <ngx-simple-gallery [galleryItems]="galleryItemsForComponent2" [galleryConfig]="galleryConfig"></ngx-simple-gallery>
+      </div>
+    </div>
+  </section>
 
-<hr/>
-
-<h1>using Directive</h1>
-<p simpleGallery [galleryItems]="galleryItemsForDirective" [galleryConfig]="galleryConfig">My Gallery</p>
+  <section class="demo-section">
+    <h2 class="section-title">Using as a Directive</h2>
+    <p class="section-hint">Attach it to any element to open the gallery in a modal on click.</p>
+    <button class="gallery-button" simpleGallery [galleryItems]="galleryItemsForDirective" [galleryConfig]="galleryConfig">
+      My Gallery
+    </button>
+  </section>
+</main>

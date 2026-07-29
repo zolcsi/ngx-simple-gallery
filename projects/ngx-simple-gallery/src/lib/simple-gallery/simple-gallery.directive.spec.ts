@@ -133,13 +133,14 @@ describe('SimpleGalleryDirective', () => {
 
   it('should display a message, when the gallery is empty, on click', () => {
     // arrange
+    const emptyFixture = TestBed.createComponent(TestComponent);
+    emptyFixture.componentInstance.galleryItems = [];
+    emptyFixture.detectChanges();
+
     jest.spyOn(galleryServiceMock, 'setGalleryItems');
     jest.spyOn(dialogMock, 'open');
 
-    fixture.componentInstance.galleryItems = [];
-    fixture.detectChanges();
-
-    const debugElement = fixture.debugElement;
+    const debugElement = emptyFixture.debugElement;
     const h2 = debugElement.query(By.css('h2'));
 
     // act

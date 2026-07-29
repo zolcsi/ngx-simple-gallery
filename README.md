@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/ngx-simple-gallery.svg)](https://badge.fury.io/js/ngx-simple-gallery)
 [![codecov](https://codecov.io/gh/zolcsi/ngx-simple-gallery/graph/badge.svg?token=772F41V3M1)](https://codecov.io/gh/zolcsi/ngx-simple-gallery)
 
-A simple gallery lib for Angular [20]. It displays all the images as thumbnails and makes it big, when clicked/tapped on it.
+A simple gallery lib for Angular. It displays all the images as thumbnails and makes it big, when clicked/tapped on it.
  - mobile friendly
  - lightweight
  - use images from any source
@@ -18,11 +18,12 @@ A simple gallery lib for Angular [20]. It displays all the images as thumbnails 
 
 ## Versioning
 
-| Gallery | Angular | Readme                                                                                   |
-|---------|---------|------------------------------------------------------------------------------------------|
-| `^20`   | `20+`   | here                                                                                     |
-| `^19`   | `19+`   | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/19.0.1/README.md) |
-| `^18`   | `18`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/1.2.4/README.md)       |
+| Gallery | Angular | Readme                                                                              |
+|---------|---------|-------------------------------------------------------------------------------------|
+| `^21`   | `21+`   | here                                                                                |
+| `^20`   | `20`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/20.0.0/README.md) |
+| `^19`   | `19`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/19.0.1/README.md) |
+| `^18`   | `18`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/1.2.4/README.md)  |
 
 
 ## Installation
@@ -97,7 +98,7 @@ or
 
 #### 4b. Using the directive on your own element (this does not render the items on the page, directly opens the modal view)
 ```html
-<p simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">My Gallery</p>
+<button simpleGallery [galleryItems]="galleryItems" [galleryConfig]="galleryConfig">My Gallery</button>
 ```
 
 
