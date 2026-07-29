@@ -24,12 +24,12 @@ export class ShowcaseDialogComponent {
     this.showThumbnailList = computed(() => this.galleryService.getLibConfig().showModalThumbnailList);
   }
 
-  @HostListener('document:keydown.arrowLeft', ['$event'])
+  @HostListener('document:keydown.arrowLeft')
   public handleArrowLeftKeyboardEvent(): void {
     this.galleryService.loadPrev();
   }
 
-  @HostListener('document:keydown.arrowRight', ['$event'])
+  @HostListener('document:keydown.arrowRight')
   public handleArrowRightKeyboardEvent(): void {
     this.galleryService.loadNext();
   }
