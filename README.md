@@ -20,7 +20,8 @@ A simple gallery lib for Angular. It displays all the images as thumbnails and m
 
 | Gallery | Angular | Readme                                                                              |
 |---------|---------|-------------------------------------------------------------------------------------|
-| `^21`   | `21+`   | here                                                                                |
+| `^22`   | `22+`   | here                                                                                |
+| `^21`   | `21`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/21.0.1/README.md) |
 | `^20`   | `20`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/20.0.0/README.md) |
 | `^19`   | `19`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/19.0.1/README.md) |
 | `^18`   | `18`    | [**README.md**](https://github.com/zolcsi/ngx-simple-gallery/blob/1.2.4/README.md)  |
