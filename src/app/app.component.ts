@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { GalleryConfig, GalleryItem, NgxSimpleGalleryComponent, SimpleGalleryDirective } from 'ngx-simple-gallery';
 
 @Component({
   selector: 'app-root',
   imports: [NgxSimpleGalleryComponent, SimpleGalleryDirective],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  public readonly version = '21.0.1';
+  public readonly version = '22.0.0';
 
   public galleryConfig: GalleryConfig = {
     emptyMessage: 'Images not found',
