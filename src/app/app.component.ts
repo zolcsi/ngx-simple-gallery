@@ -8,6 +8,8 @@ import { GalleryConfig, GalleryItem, NgxSimpleGalleryComponent, SimpleGalleryDir
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  public readonly version = '21.0.0';
+
   public galleryConfig: GalleryConfig = {
     emptyMessage: 'Images not found',
     galleryThumbnailSize: 140,
@@ -17,31 +19,43 @@ export class AppComponent {
 
   public galleryItemsForComponent1: GalleryItem[] = [
     {
+      src: 'https://picsum.photos/id/219/1200/1800',
+      thumbnail: 'https://picsum.photos/id/219/160/160',
+    },
+    {
       src: 'https://picsum.photos/id/237/1200/1800',
       thumbnail: 'https://picsum.photos/id/237/160/160',
     },
     {
-      src: 'https://picsum.photos/id/124/1200/1800',
-      thumbnail: 'https://picsum.photos/id/124/160/160',
+      src: 'https://picsum.photos/id/582/1200/1800',
+      thumbnail: 'https://picsum.photos/id/582/160/160',
     },
   ];
 
   public galleryItemsForComponent2: GalleryItem[] = [
     {
-      src: 'https://picsum.photos/id/155/800/1200',
-      thumbnail: 'https://picsum.photos/id/155/160/160',
+      src: 'https://picsum.photos/id/33/800/1200',
+      thumbnail: 'https://picsum.photos/id/33/160/160',
     },
     {
-      src: 'https://picsum.photos/id/122/1200/1800',
-      thumbnail: 'https://picsum.photos/id/122/160/160',
+      src: 'https://picsum.photos/id/189/1200/1800',
+      thumbnail: 'https://picsum.photos/id/189/160/160',
     },
     {
-      src: 'https://picsum.photos/id/119/800/1200',
-      thumbnail: 'https://picsum.photos/id/119/160/160',
+      src: 'https://picsum.photos/id/289/800/1200',
+      thumbnail: 'https://picsum.photos/id/289/160/160',
     },
     {
-      src: 'https://picsum.photos/id/111/800/1200',
-      thumbnail: 'https://picsum.photos/id/111/160/160',
+      src: 'https://picsum.photos/id/519/800/1200',
+      thumbnail: 'https://picsum.photos/id/519/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/322/800/1200',
+      thumbnail: 'https://picsum.photos/id/322/160/160',
+    },
+    {
+      src: 'https://picsum.photos/id/452/800/1200',
+      thumbnail: 'https://picsum.photos/id/452/160/160',
     },
   ];
 
