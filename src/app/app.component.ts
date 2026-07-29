@@ -8,7 +8,7 @@ import { GalleryConfig, GalleryItem, NgxSimpleGalleryComponent, SimpleGalleryDir
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  public readonly version = '21.0.0';
+  public readonly version = '21.0.1';
 
   public galleryConfig: GalleryConfig = {
     emptyMessage: 'Images not found',
